@@ -1,0 +1,49 @@
+apply plugin: libs.plugins.kotlin.android.get().pluginId
+
+android {
+    compileSdkVersion Integer.parseInt(project.compileSdk)
+
+    defaultConfig {
+        targetSdkVersion Integer.parseInt(project.targetSdk)
+        minSdkVersion Integer.parseInt(project.minSdk)
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            consumerProguardFiles 'consumer-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro',
+                    'proguard-fixed-r8.pro'
+        }
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+
+    dependencies {
+        coreLibraryDesugaring(libs.desugar.jdk.libs)
+    }
+}

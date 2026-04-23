@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VisionFolio - 배당정보 Room DB 캐싱 구현 보고서</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2e3345;
+    --text: #e4e7f1;
+    --text-dim: #8b90a5;
+    --accent: #6c8cff;
+    --accent-glow: rgba(108,140,255,.15);
+    --green: #34d399;
+    --green-dim: rgba(52,211,153,.12);
+    --red: #f87171;
+    --red-dim: rgba(248,113,113,.12);
+    --yellow: #fbbf24;
+    --yellow-dim: rgba(251,191,36,.12);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,.12);
+    --cyan: #22d3ee;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1e2235 0%, #151828 50%, #1a1530 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 64px 0 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(108,140,255,.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(167,139,250,.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--accent-glow);
+    border: 1px solid rgba(108,140,255,.25);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    letter-spacing: .5px;
+  }
+  .hero h1 {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    color: var(--text-dim);
+    font-size: 17px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Layout */
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* Section */
+  section {
+    padding: 56px 0;
+  }
+  section + section {
+    border-top: 1px solid var(--border);
+  }
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .section-label .dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -.5px;
+  }
+  section > .desc {
+    color: var(--text-dim);
+    font-size: 15px;
+    margin-bottom: 36px;
+    max-width: 700px;
+  }
+
+  /* Cards grid */
+  .cards { display: grid; gap: 16px; }
+  .cards-2 { grid-template-columns: 1fr 1fr; }
+  .cards-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .cards-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card p, .card li {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .card ul li::before {
+    content: '→';
+    color: var(--accent);
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  /* Icon circles */
+  .icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .icon-blue   { background: var(--accent-glow); }
+  .icon-green  { background: var(--green-dim); }
+  .icon-red    { background: var(--red-dim); }
+  .icon-yellow { background: var(--yellow-dim); }
+  .icon-purple { background: var(--purple-dim); }
+
+  /* Stat boxes */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  .stat-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    text-align: center;
+  }
+  .stat-box .number {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1.1;
+  }
+  .stat-box .number.blue { color: var(--accent); }
+  .stat-box .number.green { color: var(--green); }
+  .stat-box .number.purple { color: var(--purple); }
+  .stat-box .label {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  /* Flow diagram */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+  .flow-step {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    position: relative;
+    padding-bottom: 12px;
+  }
+  .flow-step:last-child { padding-bottom: 0; }
+  .flow-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 48px;
+    flex-shrink: 0;
+  }
+  .flow-num {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .flow-num.n1 { background: var(--accent-glow); color: var(--accent); border: 2px solid rgba(108,140,255,.3); }
+  .flow-num.n2 { background: var(--green-dim); color: var(--green); border: 2px solid rgba(52,211,153,.3); }
+  .flow-num.n3 { background: var(--yellow-dim); color: var(--yellow); border: 2px solid rgba(251,191,36,.3); }
+  .flow-connector {
+    width: 2px;
+    flex: 1;
+    min-height: 20px;
+    background: linear-gradient(180deg, var(--border) 0%, transparent 100%);
+  }
+  .flow-content {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+  .flow-content h4 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .flow-content p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .flow-content .tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 6px;
+    margin-top: 10px;
+  }
+  .tag-hit   { background: var(--green-dim); color: var(--green); }
+  .tag-miss  { background: var(--accent-glow); color: var(--accent); }
+  .tag-stale { background: var(--yellow-dim); color: var(--yellow); }
+
+  /* Code block */
+  .code-block {
+    background: #141620;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-x: auto;
+    color: var(--text-dim);
+    margin-top: 16px;
+  }
+  .code-block .kw { color: #c792ea; }
+  .code-block .fn { color: #82aaff; }
+  .code-block .str { color: #c3e88d; }
+  .code-block .cmt { color: #546e7a; font-style: italic; }
+  .code-block .type { color: #ffcb6b; }
+  .code-block .num { color: #f78c6c; }
+
+  /* Table */
+  .table-wrap {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  thead {
+    background: var(--surface2);
+  }
+  th {
+    text-align: left;
+    padding: 14px 20px;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+  tr:last-child td { border-bottom: none; }
+  tbody tr {
+    background: var(--surface);
+    transition: background .15s;
+  }
+  tbody tr:hover { background: var(--surface2); }
+  td:first-child { color: var(--text); font-weight: 600; }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 6px;
+    letter-spacing: .3px;
+  }
+  .badge-new    { background: var(--green-dim); color: var(--green); }
+  .badge-mod    { background: var(--accent-glow); color: var(--accent); }
+  .badge-yes    { background: var(--green-dim); color: var(--green); }
+  .badge-no     { background: var(--surface2); color: var(--text-dim); }
+
+  /* Comparison bar */
+  .compare-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .compare-label {
+    width: 200px;
+    font-size: 14px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .compare-bars {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .bar-track {
+    flex: 1;
+    height: 28px;
+    background: var(--surface2);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    transition: width .8s cubic-bezier(.22,1,.36,1);
+  }
+  .bar-fill.before { background: linear-gradient(90deg, #f87171, #fb923c); }
+  .bar-fill.after  { background: linear-gradient(90deg, #34d399, #6ee7b7); }
+  .bar-tag {
+    font-size: 12px;
+    font-weight: 600;
+    width: 64px;
+    flex-shrink: 0;
+  }
+  .bar-tag.before { color: var(--red); }
+  .bar-tag.after  { color: var(--green); }
+
+  /* Refresh flow horizontal */
+  .refresh-flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 32px 0;
+  }
+  .rf-step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 22px;
+    text-align: center;
+    min-width: 160px;
+  }
+  .rf-step .rf-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .rf-step .rf-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .rf-arrow {
+    font-size: 20px;
+    color: var(--accent);
+    padding: 0 8px;
+    flex-shrink: 0;
+  }
+
+  /* Log preview */
+  .log-block {
+    background: #0d0f15;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 12.5px;
+    line-height: 2;
+    overflow-x: auto;
+  }
+  .log-line { white-space: nowrap; }
+  .log-tag { color: var(--accent); font-weight: 700; }
+  .log-d { color: var(--text-dim); }
+  .log-w { color: var(--yellow); }
+  .log-time { color: #546e7a; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 28px; }
+    .stat-grid { grid-template-columns: 1fr; }
+    .cards-2, .cards-3, .cards-4 { grid-template-columns: 1fr; }
+    .refresh-flow { flex-direction: column; }
+    .rf-arrow { transform: rotate(90deg); }
+    .compare-row { flex-direction: column; align-items: stretch; }
+    .compare-label { text-align: left; width: auto; }
+  }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 0;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-badge">IMPLEMENTATION REPORT</div>
+    <h1>배당정보 Room DB 캐싱</h1>
+    <p>API 호출을 당일 1회로 제한하고, 오프라인 폴백을 제공하는 로컬 캐싱 전략</p>
+  </div>
+</div>
+
+<!-- ===== SUMMARY STATS ===== -->
+<section>
+  <div class="container">
+    <div class="section-label"><span class="dot"></span> Overview</div>
+    <h2>구현 요약</h2>
+    <p class="desc">FMP / data.go.kr 무료 플랜 한도 초과 문제를 해결하기 위해, 변경 빈도가 낮은 per-share 배당 데이터를 Room DB에 캐싱합니다.</p>
+
+    <div class="stat-grid">
+      <div class="stat-box">
+        <div class="number blue">2</div>
+        <div class="label">신규 파일</div>
+      </div>
+      <div class="stat-box">
+        <div class="number green">6</div>
+        <div class="label">수정 파일</div>
+      </div>
+      <div class="stat-box">
+        <div class="number purple">~80%</div>
+        <div class="label">API 호출 절감</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROBLEM ===== -->
+<section>
+  <div class="container">
+    <div class="section-label"><span class="dot"></span> Problem</div>
+    <h2>도입 배경</h2>
+    <p class="desc">배당 탭에 진입할 때마다 보유 종목 수만큼 API를 호출하여, 무료 플랜 한도에 빠르게 도달합니다.</p>
+
+    <div class="cards cards-3">
+      <div class="card">
+        <h3><span class="icon icon-red">&#9888;</span>FMP 402 에러</h3>
+        <p>미국 주식 배당 API 무료 한도 초과로 이미 402 에러 발생 중</p>
+      </div>
+      <div class="card">
+        <h3><span class="icon icon-yellow">&#9889;</span>불필요한 반복 호출</h3>
+        <p>같은 날 배당 탭을 5번 열면 보유 종목 수 &times; 5회 API 호출</p>
+      </div>
+      <div class="card">
+        <h3><span class="icon icon-green">&#10003;</span>데이터 특성</h3>
+        <p>배당금 per-share 데이터는 연/분기 단위로만 변경 &mdash; 캐싱에 적합</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3-STEP CACHING ===== -->
+<section>
+  <div class="container">
+    <div class="section-label"><span class="dot"></span> Core Logic</div>
+    <h2>3단계 캐싱 전략</h2>
+    <p class="desc"><code>DividendRepositoryImpl.getDividends()</code> 호출 시 아래 순서로 동작합니다.</p>
+
+    <div class="flow">
+      <!-- Step 1 -->
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-num n1">1</div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-content">
+          <h4>캐시 조회</h4>
+          <p><code>cachedAt</code> 타임스탬프가 <strong>오늘 날짜</strong>인지 확인합니다. 오늘이면 DB 캐시를 즉시 반환하고 API를 호출하지 않습니다.</p>
+          <span class="tag tag-hit">CACHE HIT &rarr; 즉시 반환</span>
+        </div>
+      </div>
+      <!-- Step 2 -->
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-num n2">2</div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-content">
+          <h4>API 호출 + 캐시 갱신</h4>
+          <p>캐시가 없거나 어제 이전 데이터면 API를 호출합니다. 성공 시 기존 캐시를 삭제하고 새 데이터를 저장한 뒤 반환합니다.</p>
+          <span class="tag tag-miss">CACHE MISS &rarr; API &rarr; 저장 &rarr; 반환</span>
+        </div>
+      </div>
+      <!-- Step 3 -->
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-num n3">3</div>
+        </div>
+        <div class="flow-content">
+          <h4>Stale 캐시 폴백</h4>
+          <p>API 호출이 실패하면(네트워크 오류, 402 등) <strong>날짜에 관계없이</strong> 기존 캐시를 반환합니다. 오래된 데이터라도 빈 화면보다 낫습니다.</p>
+          <span class="tag tag-stale">API FAIL &rarr; 오래된 캐시라도 반환</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-block">
+<span class="cmt">// DividendRepositoryImpl.kt — getDividends() 핵심 로직</span>
+
+<span class="cmt">// 1. 캐시 조회</span>
+<span class="kw">val</span> cachedAt = cacheDao.<span class="fn">getCachedAt</span>(holding.id)
+<span class="kw">if</span> (cachedAt != <span class="kw">null</span> && <span class="fn">isSameDay</span>(cachedAt, System.<span class="fn">currentTimeMillis</span>())) {
+    <span class="kw">val</span> cached = cacheDao.<span class="fn">getByHoldingId</span>(holding.id)
+    <span class="kw">return</span> cached.<span class="fn">map</span> { it.<span class="fn">toDomain</span>() }  <span class="cmt">// cache hit!</span>
+}
+
+<span class="cmt">// 2. API 호출</span>
+<span class="kw">val</span> records = <span class="fn">runCatching</span> { <span class="fn">fetchFromApi</span>(holding) }.<span class="fn">getOrNull</span>()
+<span class="kw">if</span> (records != <span class="kw">null</span>) {
+    cacheDao.<span class="fn">deleteByHoldingId</span>(holding.id)
+    cacheDao.<span class="fn">insertAll</span>(records.<span class="fn">map</span> { it.<span class="fn">toEntity</span>(holding.id, now) })
+    <span class="kw">return</span> records
+}
+
+<span class="cmt">// 3. API 실패 → stale 캐시 폴백</span>
+<span class="kw">val</span> stale = cacheDao.<span class="fn">getByHoldingId</span>(holding.id)
+<span class="kw">return if</span> (stale.<span class="fn">isNotEmpty</span>()) stale.<span class="fn">map</span> { it.<span class="fn">toDomain</span>() } <span class="kw">else</span> <span class="fn">emptyList</span>()
+    </div>
+  </div>
+</section>
+
+<!-- ===== REFRESH FLOW ===== -->
+<section>
+  <div class="container">
+    <div class="section-label"><span class="dot"></span> Refresh</div>
+    <h2>수동 새로고침 흐름</h2>
+    <p class="desc">사용자가 Refresh 버튼을 탭하면 캐시를 무효화하고 API를 다시 호출합니다.</p>
+
+    <div class="refresh-flow">
+      <div class="rf-step">
+        <div class="rf-title">&#128260; Refresh 탭</div>
+        <div class="rf-desc">DividendIntent.Refresh</div>
+      </div>
+      <div class="rf-arrow">&rarr;</div>
+      <div class="rf-step">
+        <div class="rf-title">&#128465; 캐시 삭제</div>
+        <div class="rf-desc">dividendRepo.clearCache()</div>
+      </div>
+      <div class="rf-arrow">&rarr;</div>
+      <div class="rf-step">
+        <div class="rf-title">&#128264; 시그널 발행</div>
+        <div class="rf-desc">refreshSignal.emit(Unit)</div>
+      </div>
+      <div class="rf-arrow">&rarr;</div>
+      <div class="rf-step">
+        <div class="rf-title">&#128259; 데이터 재조회</div>
+        <div class="rf-desc">combine 재발행 &rarr; API 호출</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+<span class="cmt">// DividendViewModel.kt</span>
+<span class="kw">private val</span> refreshSignal = <span class="type">MutableSharedFlow</span>&lt;<span class="type">Unit</span>&gt;()
+
+<span class="cmt">// init 블록에서 refreshSignal을 UseCase에 전달</span>
+<span class="fn">observeDividendData</span>(refreshSignal).<span class="fn">onEach</span> { summary ->
+    <span class="fn">setState</span> { <span class="fn">copy</span>(isLoading = <span class="kw">false</span>, summary = summary) }
+}.<span class="fn">launchIn</span>(viewModelScope)
+
+<span class="cmt">// Refresh intent 처리</span>
+<span class="type">DividendIntent</span>.Refresh -> {
+    <span class="fn">setState</span> { <span class="fn">copy</span>(isLoading = <span class="kw">true</span>) }
+    dividendRepo.<span class="fn">clearCache</span>()       <span class="cmt">// 전체 캐시 삭제</span>
+    refreshSignal.<span class="fn">emit</span>(<span class="type">Unit</span>)        <span class="cmt">// UseCase 재트리거</span>
+}
+    </div>
+  </div>
+</section>
+
+<!-- ===== DB SCHEMA ===== -->
+<section>
+  <div class="container">
+    <div class="section-label"><span class="dot"></span> Schema</div>
+    <h2>캐시 테이블 구조</h2>
+    <p class="desc">Room DB <code>dividend_cache</code> 테이블. 하나의 holdingId에 여러 행(배당 이력)이 저장됩니다.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>컬럼</th>
+            <th>타입</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>id</td><td>INTEGER PK</td><td>자동 증가 기본 키</td></tr>
+          <tr><td>holdingId</td><td>TEXT</td><td>보유 종목 ID (캐시 키)</td></tr>
+          <tr><td>stockName</td><td>TEXT</td><td>종목명</td></tr>
+          <tr><td>stockCode</td><td>TEXT</td><td>종목 코드</td></tr>
+          <tr><td>dividendPerShare</td><td>REAL</td><td>주당 배당금</td></tr>
+          <tr><td>paymentDate</td><td>TEXT</td><td>배당 지급일</td></tr>
+          <tr><td>currency</td><td>TEXT</td><td>"KRW" 또는 "USD"</td></tr>
+          <tr><td>cachedAt</td><td>INTEGER</td><td>캐시 저장 시각 (millis)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CACHING SCOPE ===== -->
+<section>
+  <div class="container">
+    <div class="section-label"><span class="dot"></span> Scope</div>
+    <h2>캐싱 범위</h2>
+    <p class="desc">per-share 데이터만 캐싱하고, 수량 기반 계산은 실시간으로 수행합니다.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>항목</th>
+            <th>캐싱</th>
+            <th>비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>주당 배당금</td>
+            <td><span class="badge badge-yes">YES</span></td>
+            <td>API에서 받은 원본 데이터</td>
+          </tr>
+          <tr>
+            <td>종목명 / 코드 / 지급일 / 통화</td>
+            <td><span class="badge badge-yes">YES</span></td>
+            <td>배당 기록 메타데이터</td>
+          </tr>
+          <tr>
+            <td>보유 수량 (quantity)</td>
+            <td><span class="badge badge-no">NO</span></td>
+            <td>ObserveDividendData에서 실시간 계산</td>
+          </tr>
+          <tr>
+            <td>배당 총액 (annualTotal)</td>
+            <td><span class="badge badge-no">NO</span></td>
+            <td>quantity &times; dividendPerShare 매번 계산</td>
+          </tr>
+          <tr>
+            <td>배당 수익률 (yield)</td>
+            <td><span class="badge badge-no">NO</span></td>
+            <td>currentPrice 기반 매번 계산</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top: 20px; border-left: 3px solid var(--green);">
+      <h3><span class="icon icon-green">&#128161;</span> 설계 포인트</h3>
+      <p>보유 수량이 변경되어도 캐시를 무효화할 필요가 없습니다. <code>holdingRepo.observe()</code> Flow가 수량 변경을 감지하면 <code>combine</code>에 의해 <code>buildSummary()</code>가 재실행되고, 이때 <code>getDividends()</code>는 캐시 히트하여 per-share 데이터만 빠르게 반환합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FILE CHANGES ===== -->
+<section>
+  <div class="container">
+    <div class="section-label"><span class="dot"></span> Changes</div>
+    <h2>변경 파일 목록</h2>
+    <p class="desc">신규 2개, 수정 6개 — 총 8개 파일이 변경되었습니다.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>파일</th>
+            <th>구분</th>
+            <th>변경 내용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>DividendCacheEntity.kt</td>
+            <td><span class="badge badge-new">NEW</span></td>
+            <td>Room Entity — dividend_cache 테이블 정의</td>
+          </tr>
+          <tr>
+            <td>DividendCacheDao.kt</td>
+            <td><span class="badge badge-new">NEW</span></td>
+            <td>DAO — getByHoldingId, getCachedAt, insertAll, delete, clearAll</td>
+          </tr>
+          <tr>
+            <td>VfDatabase.kt</td>
+            <td><span class="badge badge-mod">MOD</span></td>
+            <td>Entity 등록, dividendCacheDao() 추가</td>
+          </tr>
+          <tr>
+            <td>LocalModule.kt</td>
+            <td><span class="badge badge-mod">MOD</span></td>
+            <td>provideDividendCacheDao() DI 프로바이더 추가</td>
+          </tr>
+          <tr>
+            <td>DividendRepository.kt</td>
+            <td><span class="badge badge-mod">MOD</span></td>
+            <td>clearCache() 인터페이스 메서드 추가</td>
+          </tr>
+          <tr>
+            <td>DividendRepositoryImpl.kt</td>
+            <td><span class="badge badge-mod">MOD</span></td>
+            <td>3단계 캐싱 로직, clearCache(), isSameDay(), 매퍼 함수</td>
+          </tr>
+          <tr>
+            <td>ObserveDividendData.kt</td>
+            <td><span class="badge badge-mod">MOD</span></td>
+            <td>refreshTrigger 파라미터 추가, combine으로 수동 새로고침 지원</td>
+          </tr>
+          <tr>
+            <td>DividendViewModel.kt</td>
+            <td><span class="badge badge-mod">MOD</span></td>
+            <td>DividendRepository 주입, refreshSignal, Refresh intent 연결</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== API REDUCTION ===== -->
+<section>
+  <div class="container">
+    <div class="section-label"><span class="dot"></span> Impact</div>
+    <h2>API 호출 절감 효과</h2>
+    <p class="desc">보유 종목 10개 기준, 하루 동안 배당 탭을 5회 진입하는 시나리오입니다.</p>
+
+    <div class="compare-row">
+      <div class="compare-label">최초 진입 (1회)</div>
+      <div class="compare-bars">
+        <div class="bar-wrap">
+          <span class="bar-tag before">기존 10</span>
+          <div class="bar-track"><div class="bar-fill before" style="width:20%"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <span class="bar-tag after">변경 10</span>
+          <div class="bar-track"><div class="bar-fill after" style="width:20%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="compare-row">
+      <div class="compare-label">같은 날 5회 재진입</div>
+      <div class="compare-bars">
+        <div class="bar-wrap">
+          <span class="bar-tag before">기존 50</span>
+          <div class="bar-track"><div class="bar-fill before" style="width:100%"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <span class="bar-tag after">변경 10</span>
+          <div class="bar-track"><div class="bar-fill after" style="width:20%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="compare-row">
+      <div class="compare-label">수동 새로고침 (1회)</div>
+      <div class="compare-bars">
+        <div class="bar-wrap">
+          <span class="bar-tag before">기존 10</span>
+          <div class="bar-track"><div class="bar-fill before" style="width:20%"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <span class="bar-tag after">변경 10</span>
+          <div class="bar-track"><div class="bar-fill after" style="width:20%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="compare-row">
+      <div class="compare-label" style="font-weight:700; color:var(--text);">일일 합계</div>
+      <div class="compare-bars">
+        <div class="bar-wrap">
+          <span class="bar-tag before" style="font-size:14px; font-weight:800;">기존 70</span>
+          <div class="bar-track"><div class="bar-fill before" style="width:100%"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <span class="bar-tag after" style="font-size:14px; font-weight:800;">변경 20</span>
+          <div class="bar-track"><div class="bar-fill after" style="width:28.5%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 12px; border-left: 3px solid var(--green); text-align:center;">
+      <h3 style="justify-content:center;"><span class="icon icon-green">&#128200;</span> 일반적 사용 패턴 기준 약 70~80% API 호출 절감</h3>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ERROR RESILIENCE ===== -->
+<section>
+  <div class="container">
+    <div class="section-label"><span class="dot"></span> Resilience</div>
+    <h2>에러 내성 설계</h2>
+    <p class="desc">API 실패 상황에서의 동작 비교입니다.</p>
+
+    <div class="cards cards-3">
+      <div class="card" style="border-top: 3px solid var(--green);">
+        <h3><span class="icon icon-green">&#10003;</span> API 성공</h3>
+        <ul>
+          <li>결과 반환</li>
+          <li>캐시 저장 (갱신)</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--yellow);">
+        <h3><span class="icon icon-yellow">&#9888;</span> API 실패 + 캐시 있음</h3>
+        <ul>
+          <li>기존: 빈 화면 표시</li>
+          <li><strong style="color:var(--green)">변경: stale 캐시 반환</strong></li>
+        </ul>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--red);">
+        <h3><span class="icon icon-red">&#10007;</span> API 실패 + 캐시 없음</h3>
+        <ul>
+          <li>emptyList() 반환</li>
+          <li>(기존과 동일)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 16px; border-left: 3px solid var(--yellow);">
+      <h3><span class="icon icon-yellow">&#128736;</span> 핵심 변경: runCatching 전파 구조</h3>
+      <p>기존에는 <code>fetchFmpDividends()</code> / <code>fetchKrDividends()</code> 내부에 각각 <code>runCatching</code>이 있어 예외를 <code>emptyList()</code>로 삼켰습니다. 이를 제거하여 예외가 상위 <code>getDividends()</code>의 <code>runCatching</code>까지 전파되도록 수정했습니다. 이를 통해 stale 캐시 폴백이 정상 동작합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VERIFICATION ===== -->
+<section>
+  <div class="container">
+    <div class="section-label"><span class="dot"></span> Verification</div>
+    <h2>검증 방법</h2>
+    <p class="desc"><code>adb logcat -s DividendRepo</code> 로 아래 로그를 확인합니다.</p>
+
+    <div class="log-block">
+<div class="log-line"><span class="log-time">12:00:01</span> <span class="log-tag">D/DividendRepo</span>: <span class="log-d">FMP dividends for AAPL (AAPL): 4 records</span></div>
+<div class="log-line"><span class="log-time">12:00:01</span> <span class="log-tag">D/DividendRepo</span>: <span class="log-d">KR dividends for '삼성전자': 1 records (totalCount=1)</span></div>
+<div class="log-line"><span class="log-time" style="opacity:.3">...</span></div>
+<div class="log-line"><span class="log-time">12:05:30</span> <span class="log-tag">D/DividendRepo</span>: <span class="log-d">cache hit for AAPL (4 records)</span>  <span class="log-w">&larr; 재진입 시 API 호출 없음</span></div>
+<div class="log-line"><span class="log-time">12:05:30</span> <span class="log-tag">D/DividendRepo</span>: <span class="log-d">cache hit for 삼성전자 (1 records)</span></div>
+<div class="log-line"><span class="log-time" style="opacity:.3">...</span></div>
+<div class="log-line"><span class="log-time">12:10:00</span> <span class="log-tag">D/DividendRepo</span>: <span class="log-d">dividend cache cleared</span>  <span class="log-w">&larr; Refresh 버튼</span></div>
+<div class="log-line"><span class="log-time">12:10:01</span> <span class="log-tag">D/DividendRepo</span>: <span class="log-d">FMP dividends for AAPL (AAPL): 4 records</span>  <span class="log-w">&larr; API 재호출</span></div>
+<div class="log-line"><span class="log-time" style="opacity:.3">...</span></div>
+<div class="log-line"><span class="log-time">12:15:00</span> <span class="log-tag">W/DividendRepo</span>: <span class="log-w">API failed for AAPL, using stale cache (4 records)</span>  <span class="log-w">&larr; 폴백</span></div>
+    </div>
+
+    <div class="table-wrap" style="margin-top: 24px;">
+      <table>
+        <thead>
+          <tr>
+            <th>시나리오</th>
+            <th>기대 결과</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>최초 배당 탭 진입</td><td>API 호출 로그 (FMP/KR dividends for ...)</td></tr>
+          <tr><td>같은 날 재진입</td><td><code>cache hit for ... (N records)</code> — API 호출 없음</td></tr>
+          <tr><td>Refresh 버튼</td><td><code>dividend cache cleared</code> &rarr; API 재호출 로그</td></tr>
+          <tr><td>API 실패 + 캐시 존재</td><td><code>API failed for ..., using stale cache</code></td></tr>
+          <tr><td>보유 수량 변경 후 재진입</td><td><code>cache hit</code> — 캐시 유지, 총액만 재계산</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ARCHITECTURE ===== -->
+<section>
+  <div class="container">
+    <div class="section-label"><span class="dot"></span> Architecture</div>
+    <h2>아키텍처 다이어그램</h2>
+    <p class="desc">레이어별 데이터 흐름과 책임 영역입니다.</p>
+
+    <div class="code-block" style="font-size: 13px; line-height: 1.6; text-align: center; letter-spacing: 0;">
+<span style="color:var(--purple);font-weight:700">┌─────────────────── feature/dividend ───────────────────┐</span>
+<span style="color:var(--purple)">│</span>                                                        <span style="color:var(--purple)">│</span>
+<span style="color:var(--purple)">│</span>   <span style="color:#e4e7f1;font-weight:700">DividendViewModel</span>                                  <span style="color:var(--purple)">│</span>
+<span style="color:var(--purple)">│</span>     refreshSignal ──emit()──┐                         <span style="color:var(--purple)">│</span>
+<span style="color:var(--purple)">│</span>     clearCache() ───────────┤                         <span style="color:var(--purple)">│</span>
+<span style="color:var(--purple)">│</span>                              ▼                         <span style="color:var(--purple)">│</span>
+<span style="color:var(--purple)">└──────────────────────────────┼──────────────────────────┘</span>
+                               │
+<span style="color:var(--accent);font-weight:700">┌──────────────────── core/domain ───────────────────────┐</span>
+<span style="color:var(--accent)">│</span>                              │                         <span style="color:var(--accent)">│</span>
+<span style="color:var(--accent)">│</span>   <span style="color:#e4e7f1;font-weight:700">ObserveDividendData</span>                                <span style="color:var(--accent)">│</span>
+<span style="color:var(--accent)">│</span>     combine(holdings, refreshTrigger)                  <span style="color:var(--accent)">│</span>
+<span style="color:var(--accent)">│</span>       → buildSummary() → DividendSummary                <span style="color:var(--accent)">│</span>
+<span style="color:var(--accent)">│</span>                              │                         <span style="color:var(--accent)">│</span>
+<span style="color:var(--accent)">└──────────────────────────────┼──────────────────────────┘</span>
+                               │ getDividends(holding)
+<span style="color:var(--green);font-weight:700">┌──────────────────── core/data ─────────────────────────┐</span>
+<span style="color:var(--green)">│</span>                              │                         <span style="color:var(--green)">│</span>
+<span style="color:var(--green)">│</span>   <span style="color:#e4e7f1;font-weight:700">DividendRepositoryImpl</span>                             <span style="color:var(--green)">│</span>
+<span style="color:var(--green)">│</span>     1. 캐시 조회 (오늘?) → 반환                        <span style="color:var(--green)">│</span>
+<span style="color:var(--green)">│</span>     2. API 호출 → 캐시 저장 → 반환                     <span style="color:var(--green)">│</span>
+<span style="color:var(--green)">│</span>     3. API 실패 → stale 캐시 반환                      <span style="color:var(--green)">│</span>
+<span style="color:var(--green)">│</span>              │                   │                      <span style="color:var(--green)">│</span>
+<span style="color:var(--green)">│</span>         FmpService         KrService                   <span style="color:var(--green)">│</span>
+<span style="color:var(--green)">└──────────┼──────────────────┼─────────────────────────────┘</span>
+           │                  │
+<span style="color:var(--yellow);font-weight:700">┌──────────┴──────────────────┴───── core/local ─────────┐</span>
+<span style="color:var(--yellow)">│</span>                                                        <span style="color:var(--yellow)">│</span>
+<span style="color:var(--yellow)">│</span>   <span style="color:#e4e7f1;font-weight:700">Room DB</span>  dividend_cache 테이블                      <span style="color:var(--yellow)">│</span>
+<span style="color:var(--yellow)">│</span>   <span style="color:#e4e7f1;font-weight:700">DividendCacheDao</span>                                   <span style="color:var(--yellow)">│</span>
+<span style="color:var(--yellow)">│</span>                                                        <span style="color:var(--yellow)">│</span>
+<span style="color:var(--yellow)">└────────────────────────────────────────────────────────┘</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    VisionFolio &mdash; Dividend Cache Implementation Report
+  </div>
+</footer>
+
+</body>
+</html>

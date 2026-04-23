@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ── Common / Shared ────────────────────────────── -->
+    <string name="btn_cancel">취소</string>
+    <string name="btn_add">추가</string>
+    <string name="btn_done">완료</string>
+    <string name="btn_apply">적용</string>
+    <string name="btn_close">닫기</string>
+    <string name="cd_close">닫기</string>
+    <string name="cd_edit">편집</string>
+    <string name="cd_refresh">새로고침</string>
+    <string name="cd_notifications">알림</string>
+    <string name="cd_add">추가</string>
+    <string name="cd_remove">제거</string>
+    <string name="label_category">카테고리</string>
+    <string name="label_currency">통화</string>
+    <string name="label_stock_name">종목명</string>
+    <string name="label_stock_code">종목코드</string>
+    <string name="label_stock_code_optional">종목코드 (선택)</string>
+    <string name="label_quantity">수량</string>
+    <string name="label_avg_price">평균 매입가</string>
+    <string name="label_current_price">현재가</string>
+    <string name="label_today">오늘</string>
+    <string name="chip_all">전체</string>
+    <string name="unit_shares">주</string>
+    <string name="unit_manwon">만원</string>
+    <string name="label_total_purchase_amount">총 매수금액</string>
+    <string name="label_total_valuation">총 평가금액</string>
+    <string name="label_maturity_date">만기일</string>
+    <string name="label_bond_name">채권명</string>
+
+    <!-- ── Home · QuoteHeader ─────────────────────────── -->
+    <string name="quote_default_text">시장에서는 인내가 무기다.</string>
+    <string name="quote_default_author">워런 버핏</string>
+
+    <!-- ── Home · TotalCard ───────────────────────────── -->
+    <string name="label_total_assets">총 자산</string>
+    <string name="label_total_profit">총 수익</string>
+    <string name="cd_show_amount">금액 표시</string>
+    <string name="cd_hide_amount">금액 숨기기</string>
+    <string name="cd_toggle_currency">표시 통화 전환</string>
+    <string name="cta_upload_screenshot">스크린샷으로 추가</string>
+    <string name="cta_view_trend">자산 추이 보기</string>
+
+    <!-- ── Home · HoldingsCard ────────────────────────── -->
+    <string name="label_holdings">보유 자산</string>
+    <string name="holdings_summary">%1$d개 · %2$d카테고리</string>
+    <string name="label_view_all">전체 보기</string>
+    <string name="holding_detail_format">%1$s · %2$s</string>
+
+    <!-- ── Home · CategoryRibbon ──────────────────────── -->
+    <string name="empty_category">자산 배분 정보가 없습니다.</string>
+    <string name="chip_category">카테고리</string>
+    <string name="chip_holding">종목</string>
+
+    <!-- ── Home · SectionHeaders ──────────────────────── -->
+    <string name="section_allocation">자산 배분</string>
+    <string name="section_market_today">오늘의 시장</string>
+    <string name="section_headline">경제 헤드라인</string>
+    <string name="section_headline_subtitle">AI 요약 · 09:10 업데이트</string>
+
+    <!-- ── Insight · Guru ────────────────────────────── -->
+    <string name="section_wall_street_gurus">월가의 거물들</string>
+    <string name="section_wall_street_gurus_subtitle">유명 투자자 포트폴리오</string>
+    <string name="guru_total_portfolio">총 포트폴리오</string>
+    <string name="guru_holdings_count">%1$d개 종목</string>
+    <string name="guru_weight_format">비중 %1$s%%</string>
+
+    <!-- ── Trend · TrendScreen ────────────────────────── -->
+    <string name="title_trend">자산 추이</string>
+    <string name="subtitle_trend">스크린샷 기반 · 수동 갱신 반영</string>
+    <string name="section_interval_stats">구간 통계</string>
+    <string name="section_contribution">기여도 분석</string>
+    <string name="section_contribution_subtitle">카테고리별 수익률 기여</string>
+
+    <!-- ── Trend · Period labels (full — SectionHeader subtitle) -->
+    <string name="period_d1">최근 1일</string>
+    <string name="period_w1">최근 1주</string>
+    <string name="period_m1">최근 1개월</string>
+    <string name="period_m3">최근 3개월</string>
+    <string name="period_m6">최근 6개월</string>
+    <string name="period_y1">최근 1년</string>
+    <string name="period_all">전체 기록</string>
+    <string name="period_custom">사용자 지정</string>
+
+    <!-- ── Trend · Period chip labels (short) ─────────── -->
+    <string name="period_chip_d1">1일</string>
+    <string name="period_chip_w1">1주</string>
+    <string name="period_chip_m1">1개월</string>
+    <string name="period_chip_m3">3개월</string>
+    <string name="period_chip_m6">6개월</string>
+    <string name="period_chip_y1">1년</string>
+
+    <!-- ── Trend · StatsGrid ──────────────────────────── -->
+    <string name="stat_high">최고</string>
+    <string name="stat_low">최저</string>
+    <string name="stat_avg">평균</string>
+    <string name="stat_start">시작</string>
+
+    <!-- ── Trend · ChartCard ──────────────────────────── -->
+    <string name="chart_empty_message">첫 스냅샷이 기록되었어요.\n내일 또 스냅샷을 기록하면 자산의 여정을 그려드릴게요.</string>
+    <string name="chart_no_snapshot_message">첫 스냅샷 기록을 해주세요.</string>
+
+    <!-- ── Trend · AiSummaryCard ──────────────────────── -->
+    <string name="ai_summary_loading">AI 요약을 불러오는 중입니다.</string>
+
+    <!-- ── Insight (구 Dividend) · InsightScreen ──────── -->
+    <string name="title_insight">인사이트</string>
+    <string name="subtitle_insight">시장 · 뉴스 · 배당 분석</string>
+    <string name="section_dividend_summary">배당 요약</string>
+    <string name="title_dividend">배당</string>
+    <string name="subtitle_dividend">보유 종목 기준 · 예상 배당금</string>
+    <string name="dividend_yearly">연간</string>
+    <string name="dividend_quarterly">분기</string>
+    <string name="dividend_monthly">월간</string>
+    <string name="dividend_tab_yearly">연간</string>
+    <string name="dividend_tab_quarterly">분기</string>
+    <string name="dividend_tab_monthly">월간</string>
+    <string name="section_dividend_holdings">종목별 배당</string>
+    <string name="dividend_holdings_count">%1$d개 종목</string>
+    <string name="dividend_empty">배당 정보가 있는 종목이 없습니다.</string>
+    <string name="dividend_per_share_format">주당 %1$s %2$s</string>
+    <string name="frequency_monthly">월배당</string>
+    <string name="frequency_quarterly">분기배당</string>
+    <string name="frequency_semi_annual">반기배당</string>
+    <string name="frequency_annual">연배당</string>
+    <string name="frequency_unknown">미정</string>
+
+    <!-- ── AddHolding ─────────────────────────────────── -->
+    <string name="title_add_holding">자산 직접 추가</string>
+    <string name="subtitle_add_holding">항목을 직접 입력해 포트폴리오에 추가합니다.</string>
+    <string name="btn_adding">추가 중…</string>
+    <string name="btn_save">저장</string>
+    <string name="btn_saving">저장 중…</string>
+    <string name="btn_delete">삭제</string>
+    <string name="toast_holding_updated">수정했어요</string>
+    <string name="toast_holding_deleted">삭제했어요</string>
+    <string name="empty_holdings">보유 자산이 없어요</string>
+    <string name="title_edit_holdings">자산 편집</string>
+    <string name="subtitle_edit_holdings">보유 자산을 수정하거나 삭제할 수 있어요</string>
+    <string name="title_edit_holding">자산 수정</string>
+    <string name="subtitle_edit_holding">보유 정보를 수정하세요</string>
+
+    <!-- ── Settings ───────────────────────────────────── -->
+    <string name="title_settings">설정</string>
+    <string name="group_portfolio">포트폴리오</string>
+    <string name="settings_edit_assets">자산 추가</string>
+    <string name="settings_manage_holdings">자산 편집</string>
+    <string name="settings_upload_screenshot">스크린샷으로 추가</string>
+    <string name="group_backup">백업 · 복원</string>
+    <string name="settings_export_csv">CSV로 내보내기</string>
+    <string name="settings_import_csv">CSV에서 불러오기</string>
+    <string name="group_notifications">알림</string>
+    <string name="group_app_info">앱 정보</string>
+    <string name="settings_version">버전</string>
+    <string name="settings_build_format">%1$s (build 42)</string>
+    <string name="settings_licenses">오픈소스 라이선스</string>
+    <string name="settings_terms">이용약관</string>
+    <string name="licenses_apache_notice">위 라이브러리들은 Apache License 2.0에 따라 배포됩니다.\n전체 라이선스 텍스트는 apache.org/licenses/LICENSE-2.0에서 확인할 수 있습니다.</string>
+    <string name="app_wordmark">VisionFolio</string>
+    <string name="app_tagline">스크린샷으로 기록하는 나의 포트폴리오</string>
+    <string name="holdings_count_format">%1$d개</string>
+
+    <!-- ── Settings · ProfileCard ─────────────────────── -->
+    <string name="default_user_name">사용자</string>
+    <string name="profile_summary">%1$d개 자산 · 최근 반영 %2$s</string>
+    <string name="label_no_sync">없음</string>
+
+    <!-- ── Upload ─────────────────────────────────────── -->
+    <string name="label_screenshots">스크린샷</string>
+    <string name="parsing_status">이미지를 분석하고 있습니다…</string>
+
+    <string-array name="wall_street_quotes">
+        <item>\"시장에서는 인내가 무기다.\" — 워런 버핏</item>
+        <item>\"남들이 탐욕스러울 때 두려워하고, 남들이 두려워할 때 탐욕스러워라.\" — 워런 버핏</item>
+        <item>\"가격은 당신이 지불하는 것이고, 가치는 당신이 얻는 것이다.\" — 워런 버핏</item>
+        <item>\"10년 보유할 주식이 아니면 10분도 보유하지 마라.\" — 워런 버핏</item>
+        <item>\"분산투자는 무지에 대한 방어책이다.\" — 워런 버핏</item>
+        <item>\"복리는 세계 8번째 불가사의다.\" — 앨버트 아인슈타인</item>
+        <item>\"주식시장은 인내심 없는 자에게서 인내심 있는 자로 돈을 옮기는 장치다.\" — 워런 버핏</item>
+        <item>\"위험은 자신이 무엇을 하는지 모를 때 발생한다.\" — 워런 버핏</item>
+        <item>\"절대 돈을 잃지 마라. 그것이 첫 번째 규칙이다.\" — 워런 버핏</item>
+        <item>\"가장 중요한 투자는 자기 자신에 대한 투자다.\" — 워런 버핏</item>
+        <item>\"고통 없이는 얻는 것도 없다.\" — 레이 달리오</item>
+        <item>\"현실을 있는 그대로 받아들여라.\" — 레이 달리오</item>
+        <item>\"실수에서 배우지 못하는 것이 가장 큰 실수다.\" — 레이 달리오</item>
+        <item>\"다각화는 공짜 점심이다.\" — 레이 달리오</item>
+        <item>\"진실을 두려워하지 마라. 진실을 이해하라.\" — 레이 달리오</item>
+        <item>\"시장은 당신이 지불능력을 유지할 수 있는 것보다 오래 비합리적일 수 있다.\" — 존 메이너드 케인스</item>
+        <item>\"투자의 핵심은 남이 모르는 것을 아는 게 아니라, 남보다 훈련되는 것이다.\" — 세스 클라만</item>
+        <item>\"시간은 훌륭한 기업의 친구이고 평범한 기업의 적이다.\" — 워런 버핏</item>
+        <item>\"승자의 게임이 아니라 패자의 게임이다. 실수를 줄여라.\" — 찰스 엘리스</item>
+        <item>\"모든 현명한 투자는 가치 투자다.\" — 찰리 멍거</item>
+        <item>\"뒤집어 생각하라. 항상 뒤집어 생각하라.\" — 찰리 멍거</item>
+        <item>\"단순함을 유지하고 기본에 충실하라.\" — 찰리 멍거</item>
+        <item>\"아는 것의 한계를 아는 것이 지혜의 시작이다.\" — 찰리 멍거</item>
+        <item>\"대중이 공포에 빠졌을 때가 가장 좋은 매수 기회다.\" — 존 템플턴</item>
+        <item>\"강세장은 비관 속에서 태어나고, 회의 속에서 자라며, 낙관 속에서 성숙하고, 행복 속에서 죽는다.\" — 존 템플턴</item>
+        <item>\"과거의 실적이 미래의 결과를 보장하지 않는다.\" — 월가 격언</item>
+        <item>\"계란을 한 바구니에 담지 마라.\" — 월가 격언</item>
+        <item>\"매수는 기술이고, 매도는 예술이다.\" — 월가 격언</item>
+        <item>\"투자에서 가장 위험한 네 단어는 \'이번에는 다르다\'이다.\" — 존 템플턴</item>
+        <item>\"시장을 예측하는 것이 아니라, 시장에 대비하는 것이다.\" — 하워드 막스</item>
+        <item>\"뛰어난 투자자가 되려면 남들과 다르게 생각해야 한다.\" — 하워드 막스</item>
+        <item>\"리스크란 우리가 생각하는 것보다 많은 일이 일어날 수 있다는 뜻이다.\" — 엘로이 딤슨</item>
+        <item>\"장기적으로 주식시장은 저울이지만, 단기적으로는 인기투표 기계다.\" — 벤저민 그레이엄</item>
+        <item>\"안전마진이야말로 투자의 초석이다.\" — 벤저민 그레이엄</item>
+        <item>\"투자자의 가장 큰 적은 시장이 아니라 자기 자신이다.\" — 벤저민 그레이엄</item>
+        <item>\"주식은 단기적으로 인기 투표이고, 장기적으로는 체중계다.\" — 벤저민 그레이엄</item>
+        <item>\"좋은 투자란 좋은 기업을 좋은 가격에 사는 것이다.\" — 필립 피셔</item>
+        <item>\"팔아야 할 주식을 샀다면 애초에 사지 말았어야 한다.\" — 필립 피셔</item>
+        <item>\"수익률을 쫓지 마라. 원칙을 쫓아라.\" — 존 보글</item>
+        <item>\"건초 더미에서 바늘을 찾지 마라. 건초 더미 전체를 사라.\" — 존 보글</item>
+        <item>\"비용을 줄이는 것이 수익을 높이는 가장 확실한 방법이다.\" — 존 보글</item>
+        <item>\"시장을 이기려 하지 말고 시장을 소유하라.\" — 존 보글</item>
+        <item>\"트렌드는 친구다. 단, 끝나기 전까지만.\" — 에드 세이코타</item>
+        <item>\"손실을 짧게, 이익은 길게 가져가라.\" — 제시 리버모어</item>
+        <item>\"돈은 앉아서 기다리는 것으로 번다.\" — 제시 리버모어</item>
+        <item>\"월스트리트에 새로운 것은 없다. 투기의 역사는 반복된다.\" — 제시 리버모어</item>
+        <item>\"가장 좋은 투자 시점은 피가 거리에 낭자할 때다.\" — 바론 로스차일드</item>
+        <item>\"시장이 탐욕스러울 때 조심하고, 시장이 두려울 때 인내심을 가져라.\" — 피터 린치</item>
+        <item>\"자신이 아는 것에 투자하라.\" — 피터 린치</item>
+        <item>\"주가 하락은 세일과 같다. 좋은 주식을 싸게 살 기회다.\" — 피터 린치</item>
+        <item>\"시장은 항상 틀린다. 중요한 건 그 오류를 이용할 수 있느냐다.\" — 조지 소로스</item>
+        <item>\"먼저 투자하고, 그다음에 조사하라.\" — 조지 소로스</item>
+        <item>\"바람이 불지 않을 때 바람개비를 탓하지 마라.\" — 나심 탈레브</item>
+        <item>\"드문 사건이 역사를 만든다.\" — 나심 탈레브</item>
+        <item>\"주식을 사고 수면제를 먹어라. 몇 년 후 깨어나면 부자가 되어 있을 것이다.\" — 앙드레 코스톨라니</item>
+        <item>\"인내심 있는 투자자에게 주식시장은 현금인출기다.\" — 앙드레 코스톨라니</item>
+        <item>\"10월은 주식 투기에 특히 위험한 달이다. 다른 위험한 달은 7월, 1월, 9월, 4월, 11월, 5월, 3월, 6월, 12월, 8월, 그리고 2월이다.\" — 마크 트웨인</item>
+        <item>\"시장이 앞으로 어떻게 될 것 같습니까? 오르락내리락할 겁니다.\" — JP 모건</item>
+        <item>\"투자는 페인트가 마르거나 잔디가 자라는 것을 지켜보는 것과 같아야 한다. 흥분을 원한다면 800달러를 들고 라스베이거스로 가라.\" — 폴 새뮤얼슨</item>
+        <item>\"큰 돈은 매매가 아니라 기다림에서 만들어진다.\" — 스탠리 드러켄밀러</item>
+        <item>\"시장 자체가 최고의 스승이다. 그 움직임을 읽는 법을 배워라.\" — 윌리엄 오닐</item>
+        <item>\"부를 쌓는 비결은 아무도 보지 않을 때 어떻게 행동하느냐에 달려 있다.\" — 모건 하우절</item>
+        <item>\"저축은 소득에서 자존심을 뺀 것이다.\" — 모건 하우절</item>
+    </string-array>
+    <string name="done_count_message">%1$d건이 추가되었어요</string>
+    <string name="tip_upload">증권사 앱의 \'보유 종목\' 또는 거래소의 \'자산\' 화면이 가장 정확하게 인식됩니다.</string>
+    <string name="helper_review">잘못 인식된 항목은 체크를 해제하거나 연필 아이콘으로 편집할 수 있습니다.</string>
+    <string name="footer_background">백그라운드</string>
+    <string name="footer_retake">다시 찍기</string>
+    <string name="footer_analyze">분석</string>
+    <string name="footer_waiting">대기 중</string>
+    <string name="quota_exceeded_message">AI 사용량을 초과했습니다. 재시도 중… (%1$d/%2$d)\n유료 플랜으로 업그레이드하시면 제한 없이 이용할 수 있어요!</string>
+    <string name="footer_add_count">%1$d건 추가</string>
+
+    <!-- ── Upload · UploadHeader ──────────────────────── -->
+    <string name="upload_pick_title">스크린샷으로 추가</string>
+    <string name="upload_pick_subtitle">증권사/거래소 앱 화면을 선택해 주세요.</string>
+    <string name="upload_downloading_title">AI 모델 다운로드 중</string>
+    <string name="upload_downloading_subtitle">최초 1회만 다운로드됩니다. Wi-Fi 연결을 유지해 주세요.</string>
+    <string name="upload_downloading_progress">다운로드 중… %1$d%%</string>
+    <string name="upload_parsing_title">AI가 분석하는 중</string>
+    <string name="upload_parsing_subtitle">수 초 내에 결과가 표시됩니다.</string>
+    <string name="upload_review_title">결과 확인</string>
+    <string name="upload_review_subtitle">추가할 항목을 체크하고 확인하세요.</string>
+    <string name="upload_done_subtitle">추가된 자산이 홈에 반영되었습니다.</string>
+
+    <!-- ── Upload · ShotGrid ──────────────────────────── -->
+    <string name="cd_screenshot_number">스크린샷 #%1$d</string>
+
+    <!-- ── Upload · ParsedRowList ─────────────────────── -->
+    <string name="confidence_label_format">인식된 %1$d건 · 신뢰도 %2$s%%</string>
+    <string name="parsed_row_detail">%1$s · %2$s · 평균 %3$s</string>
+    <string name="parsed_row_cash_detail">%1$s · %2$s</string>
+    <string name="label_amount">금액</string>
+
+    <!-- ── Upload · ParsedRowEditor ───────────────────── -->
+    <string name="title_edit_item">항목 편집</string>
+
+    <!-- ── Tweaks ─────────────────────────────────────── -->
+    <string name="title_tweaks">Tweaks</string>
+    <string name="label_accent_tone">연붉은색 강조 톤</string>
+    <string name="helper_accent">선택한 톤은 즉시 적용되며 다음 실행에도 유지됩니다.</string>
+    <string name="preset_salmon">살몬</string>
+    <string name="preset_terracotta">테라코타</string>
+    <string name="preset_coral">코랄</string>
+    <string name="preset_burgundy">버건디</string>
+
+    <!-- ── Notification Channels ──────────────────────── -->
+    <string name="notif_daily_summary_name">일일 자산 요약</string>
+    <string name="notif_daily_summary_desc">오전 9시에 전일 대비 변동을 요약해 알려드립니다.</string>
+    <string name="notif_headline_name">경제 헤드라인</string>
+    <string name="notif_headline_desc">AI 요약 뉴스 브리핑을 매일 알려드립니다.</string>
+    <string name="notif_price_alert_name">가격 알림</string>
+    <string name="notif_price_alert_desc">관심 자산의 급등락을 즉시 알려드립니다.</string>
+    <string name="notif_screenshot_parse_name">스크린샷 분석</string>
+    <string name="notif_screenshot_parse_desc">스크린샷 분석 진행 상황을 알려드립니다.</string>
+    <string name="notif_screenshot_parse_message">스크린샷을 분석하고 있어요.</string>
+
+</resources>

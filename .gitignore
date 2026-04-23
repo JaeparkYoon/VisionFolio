@@ -1,34 +1,83 @@
-# Gradle files
+# Gradle
 .gradle/
 build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/**/build/
+!**/src/**/*.jar
 
-# Local configuration file (sdk path, etc)
-local.properties
+# Android build outputs
+/captures
+release/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
 
-# Log/OS Files
-*.log
-
-# Android Studio generated files and folders
-captures/
+# Native build
 .externalNativeBuild/
 .cxx/
-*.aab
-*.apk
-output-metadata.json
 
-# IntelliJ
+# Local configuration
+local.properties
+/local.properties
+
+# IntelliJ / Android Studio
 *.iml
 .idea/
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
+*.ipr
+*.iws
+out/
 
-# Keystore files
+# Keystore and signing
 *.jks
 *.keystore
+keystore.properties
+signing.properties
 
-# Google Services (e.g. APIs or Firebase)
-google-services.json
+# Secrets / env
+*.env
+.env
+.env.*
+secrets.properties
+google-services.json.bak
 
-# Android Profiling
+# Log files
+*.log
+hs_err_pid*
+replay_pid*
+
+# Kotlin
+.kotlin/
+
+# Crashlytics / Firebase
+crashlytics-build.properties
+crashlytics.properties
+com_crashlytics_export_strings.xml
+fabric.properties
+
+# Navigation / generated
 *.hprof
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Editors
+*.swp
+*.swo
+*~
+.vscode/
+.fleet/
+
+# Claude Code (local overrides only; share project-level settings)
+.claude/settings.local.json
+
+# Test / coverage
+/reports
+/test-results
+jacoco.exec
+*.exec

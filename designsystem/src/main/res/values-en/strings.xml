@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ── Common / Shared ────────────────────────────── -->
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_add">Add</string>
+    <string name="btn_done">Done</string>
+    <string name="btn_apply">Apply</string>
+    <string name="btn_close">Close</string>
+    <string name="cd_close">Close</string>
+    <string name="cd_edit">Edit</string>
+    <string name="cd_refresh">Refresh</string>
+    <string name="cd_notifications">Notifications</string>
+    <string name="cd_add">Add</string>
+    <string name="cd_remove">Remove</string>
+    <string name="label_category">Category</string>
+    <string name="label_currency">Currency</string>
+    <string name="label_stock_name">Asset Name</string>
+    <string name="label_stock_code">Ticker</string>
+    <string name="label_stock_code_optional">Ticker (optional)</string>
+    <string name="label_quantity">Quantity</string>
+    <string name="label_avg_price">Avg. Cost</string>
+    <string name="label_current_price">Current Price</string>
+    <string name="label_today">Today</string>
+    <string name="chip_all">All</string>
+    <string name="unit_shares">shares</string>
+    <string name="unit_manwon">10K KRW</string>
+    <string name="label_total_purchase_amount">Total Cost</string>
+    <string name="label_total_valuation">Total Value</string>
+    <string name="label_maturity_date">Maturity Date</string>
+    <string name="label_bond_name">Bond Name</string>
+
+    <!-- ── Home · QuoteHeader ─────────────────────────── -->
+    <string name="quote_default_text">In the market, patience is a weapon.</string>
+    <string name="quote_default_author">Warren Buffett</string>
+
+    <!-- ── Home · TotalCard ───────────────────────────── -->
+    <string name="label_total_assets">Total Assets</string>
+    <string name="label_total_profit">Total Return</string>
+    <string name="cd_show_amount">Show amount</string>
+    <string name="cd_hide_amount">Hide amount</string>
+    <string name="cd_toggle_currency">Toggle display currency</string>
+    <string name="cta_upload_screenshot">Add assets from a screenshot</string>
+    <string name="cta_view_trend">View Asset Trends</string>
+
+    <!-- ── Home · HoldingsCard ────────────────────────── -->
+    <string name="label_holdings">Holdings</string>
+    <string name="holdings_summary">%1$d items · %2$d categories</string>
+    <string name="label_view_all">View all</string>
+    <string name="holding_detail_format">%1$s · %2$s</string>
+
+    <!-- ── Home · CategoryRibbon ──────────────────────── -->
+    <string name="empty_category">No allocation data yet.</string>
+    <string name="chip_category">Category</string>
+    <string name="chip_holding">Asset</string>
+
+    <!-- ── Home · SectionHeaders ──────────────────────── -->
+    <string name="section_allocation">Allocation</string>
+    <string name="section_market_today">Today\'s Market</string>
+    <string name="section_headline">Top Headlines</string>
+    <string name="section_headline_subtitle">AI summary · Updated 09:10</string>
+
+    <!-- ── Insight · Guru ────────────────────────────── -->
+    <string name="section_wall_street_gurus">Wall Street Legends</string>
+    <string name="section_wall_street_gurus_subtitle">Legendary investor portfolios</string>
+    <string name="guru_total_portfolio">Total Portfolio</string>
+    <string name="guru_holdings_count">%1$d holdings</string>
+    <string name="guru_weight_format">Weight %1$s%%</string>
+
+    <!-- ── Trend · TrendScreen ────────────────────────── -->
+    <string name="title_trend">Portfolio Trend</string>
+    <string name="subtitle_trend">Based on screenshots · Reflects manual refresh</string>
+    <string name="section_interval_stats">Period Stats</string>
+    <string name="section_contribution">Contribution Analysis</string>
+    <string name="section_contribution_subtitle">Return contribution by category</string>
+
+    <!-- ── Trend · Period labels (full — SectionHeader subtitle) -->
+    <string name="period_d1">Last 1 day</string>
+    <string name="period_w1">Last 1 week</string>
+    <string name="period_m1">Last 1 month</string>
+    <string name="period_m3">Last 3 months</string>
+    <string name="period_m6">Last 6 months</string>
+    <string name="period_y1">Last 1 year</string>
+    <string name="period_all">All time</string>
+    <string name="period_custom">Custom</string>
+
+    <!-- ── Trend · Period chip labels (short) ─────────── -->
+    <string name="period_chip_d1">1D</string>
+    <string name="period_chip_w1">1W</string>
+    <string name="period_chip_m1">1M</string>
+    <string name="period_chip_m3">3M</string>
+    <string name="period_chip_m6">6M</string>
+    <string name="period_chip_y1">1Y</string>
+
+    <!-- ── Trend · StatsGrid ──────────────────────────── -->
+    <string name="stat_high">High</string>
+    <string name="stat_low">Low</string>
+    <string name="stat_avg">Avg</string>
+    <string name="stat_start">Start</string>
+
+    <!-- ── Trend · ChartCard ──────────────────────────── -->
+    <string name="chart_empty_message">Your first snapshot is saved.\nRecord another one tomorrow and we\'ll chart your portfolio\'s journey.</string>
+    <string name="chart_no_snapshot_message">Please record your first snapshot.</string>
+
+    <!-- ── Trend · AiSummaryCard ──────────────────────── -->
+    <string name="ai_summary_loading">Loading AI summary…</string>
+
+    <!-- ── Insight (formerly Dividend) · InsightScreen ── -->
+    <string name="title_insight">Insights</string>
+    <string name="subtitle_insight">Market · News · Dividend Analysis</string>
+    <string name="section_dividend_summary">Dividend Summary</string>
+    <string name="title_dividend">Dividends</string>
+    <string name="subtitle_dividend">Based on holdings · Estimated dividends</string>
+    <string name="dividend_yearly">Yearly</string>
+    <string name="dividend_quarterly">Quarterly</string>
+    <string name="dividend_monthly">Monthly</string>
+    <string name="dividend_tab_yearly">Yearly</string>
+    <string name="dividend_tab_quarterly">Quarterly</string>
+    <string name="dividend_tab_monthly">Monthly</string>
+    <string name="section_dividend_holdings">Dividends by Holding</string>
+    <string name="dividend_holdings_count">%1$d holdings</string>
+    <string name="dividend_empty">No holdings with dividend info.</string>
+    <string name="dividend_per_share_format">%1$s %2$s / share</string>
+    <string name="frequency_monthly">Monthly</string>
+    <string name="frequency_quarterly">Quarterly</string>
+    <string name="frequency_semi_annual">Semi-annual</string>
+    <string name="frequency_annual">Annual</string>
+    <string name="frequency_unknown">Unknown</string>
+
+    <!-- ── AddHolding ─────────────────────────────────── -->
+    <string name="title_add_holding">Add Asset Manually</string>
+    <string name="subtitle_add_holding">Enter details to add an item to your portfolio.</string>
+    <string name="btn_adding">Adding…</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_saving">Saving…</string>
+    <string name="btn_delete">Delete</string>
+    <string name="toast_holding_updated">Updated</string>
+    <string name="toast_holding_deleted">Deleted</string>
+    <string name="empty_holdings">No holdings yet</string>
+    <string name="title_edit_holdings">Edit Holdings</string>
+    <string name="subtitle_edit_holdings">Edit or delete your holdings</string>
+    <string name="title_edit_holding">Edit Asset</string>
+    <string name="subtitle_edit_holding">Update this holding\'s details</string>
+
+    <!-- ── Settings ───────────────────────────────────── -->
+    <string name="title_settings">Settings</string>
+    <string name="group_portfolio">Portfolio</string>
+    <string name="settings_edit_assets">Add Asset</string>
+    <string name="settings_manage_holdings">Edit Holdings</string>
+    <string name="settings_upload_screenshot">Add from Screenshot</string>
+    <string name="group_backup">Backup &amp; Restore</string>
+    <string name="settings_export_csv">Export to CSV</string>
+    <string name="settings_import_csv">Import from CSV</string>
+    <string name="group_notifications">Notifications</string>
+    <string name="group_app_info">App Info</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_build_format">%1$s (build 42)</string>
+    <string name="settings_licenses">Open Source Licenses</string>
+    <string name="settings_terms">Terms of Service</string>
+    <string name="licenses_apache_notice">The libraries above are distributed under the Apache License 2.0.\nFull license text is available at apache.org/licenses/LICENSE-2.0.</string>
+    <string name="app_wordmark">VisionFolio</string>
+    <string name="app_tagline">Your portfolio, captured in screenshots</string>
+    <string name="holdings_count_format">%1$d items</string>
+
+    <!-- ── Settings · ProfileCard ─────────────────────── -->
+    <string name="default_user_name">User</string>
+    <string name="profile_summary">%1$d assets · Last updated %2$s</string>
+    <string name="label_no_sync">None</string>
+
+    <!-- ── Upload ─────────────────────────────────────── -->
+    <string name="label_screenshots">Screenshots</string>
+    <string name="parsing_status">Analyzing images…</string>
+
+    <string-array name="wall_street_quotes">
+        <item>\"In the market, patience is a weapon.\" — Warren Buffett</item>
+        <item>\"Be fearful when others are greedy, and greedy when others are fearful.\" — Warren Buffett</item>
+        <item>\"Price is what you pay. Value is what you get.\" — Warren Buffett</item>
+        <item>\"If you aren\'t willing to own a stock for ten years, don\'t even think about owning it for ten minutes.\" — Warren Buffett</item>
+        <item>\"Diversification is protection against ignorance.\" — Warren Buffett</item>
+        <item>\"Compound interest is the eighth wonder of the world.\" — Albert Einstein</item>
+        <item>\"The stock market is a device for transferring money from the impatient to the patient.\" — Warren Buffett</item>
+        <item>\"Risk comes from not knowing what you\'re doing.\" — Warren Buffett</item>
+        <item>\"Rule No. 1: Never lose money.\" — Warren Buffett</item>
+        <item>\"The most important investment you can make is in yourself.\" — Warren Buffett</item>
+        <item>\"No pain, no gain.\" — Ray Dalio</item>
+        <item>\"Embrace reality and deal with it.\" — Ray Dalio</item>
+        <item>\"The biggest mistake is failing to learn from your mistakes.\" — Ray Dalio</item>
+        <item>\"Diversification is a free lunch.\" — Ray Dalio</item>
+        <item>\"Don\'t fear the truth. Understand it.\" — Ray Dalio</item>
+        <item>\"The market can remain irrational longer than you can remain solvent.\" — John Maynard Keynes</item>
+        <item>\"The key to investing is not knowing more than others, but being more disciplined.\" — Seth Klarman</item>
+        <item>\"Time is the friend of the wonderful business, the enemy of the mediocre.\" — Warren Buffett</item>
+        <item>\"Investing is a loser\'s game, not a winner\'s game. Minimize mistakes.\" — Charles Ellis</item>
+        <item>\"All intelligent investing is value investing.\" — Charlie Munger</item>
+        <item>\"Invert, always invert.\" — Charlie Munger</item>
+        <item>\"Keep it simple and stick to the fundamentals.\" — Charlie Munger</item>
+        <item>\"Knowing the edge of your competence is the beginning of wisdom.\" — Charlie Munger</item>
+        <item>\"The time of maximum pessimism is the best time to buy.\" — John Templeton</item>
+        <item>\"Bull markets are born on pessimism, grow on skepticism, mature on optimism, and die on euphoria.\" — John Templeton</item>
+        <item>\"Past performance does not guarantee future results.\" — Wall Street Proverb</item>
+        <item>\"Don\'t put all your eggs in one basket.\" — Wall Street Proverb</item>
+        <item>\"Buying is a skill; selling is an art.\" — Wall Street Proverb</item>
+        <item>\"The four most dangerous words in investing are: \'this time it\'s different.\'\" — John Templeton</item>
+        <item>\"You can\'t predict. You can prepare.\" — Howard Marks</item>
+        <item>\"To be a superior investor, you must think differently from the crowd.\" — Howard Marks</item>
+        <item>\"Risk means more things can happen than will happen.\" — Elroy Dimson</item>
+        <item>\"In the short run, the market is a voting machine; in the long run, a weighing machine.\" — Benjamin Graham</item>
+        <item>\"Margin of safety is the cornerstone of investing.\" — Benjamin Graham</item>
+        <item>\"The investor\'s chief problem — and even his worst enemy — is likely to be himself.\" — Benjamin Graham</item>
+        <item>\"Short-term, stocks are a voting machine; long-term, a weighing machine.\" — Benjamin Graham</item>
+        <item>\"A good investment is buying a great company at a fair price.\" — Philip Fisher</item>
+        <item>\"If you bought a stock you have to sell, you shouldn\'t have bought it in the first place.\" — Philip Fisher</item>
+        <item>\"Don\'t chase returns. Stick to your principles.\" — John Bogle</item>
+        <item>\"Don\'t look for the needle in the haystack. Just buy the haystack.\" — John Bogle</item>
+        <item>\"Cutting costs is the surest way to boost returns.\" — John Bogle</item>
+        <item>\"Don\'t try to beat the market. Own it.\" — John Bogle</item>
+        <item>\"The trend is your friend — until the end when it bends.\" — Ed Seykota</item>
+        <item>\"Cut your losses short, let your profits run.\" — Jesse Livermore</item>
+        <item>\"The big money is made by sitting, not trading.\" — Jesse Livermore</item>
+        <item>\"There is nothing new on Wall Street. The history of speculation repeats itself.\" — Jesse Livermore</item>
+        <item>\"Buy when there\'s blood in the streets.\" — Baron Rothschild</item>
+        <item>\"Be cautious when markets are greedy; be patient when they are fearful.\" — Peter Lynch</item>
+        <item>\"Invest in what you know.\" — Peter Lynch</item>
+        <item>\"A market decline is a sale — a chance to buy great stocks cheaply.\" — Peter Lynch</item>
+        <item>\"Markets are always wrong. What matters is whether you can exploit their errors.\" — George Soros</item>
+        <item>\"Invest first, investigate later.\" — George Soros</item>
+        <item>\"Don\'t blame the windmill when the wind doesn\'t blow.\" — Nassim Taleb</item>
+        <item>\"Rare events shape history.\" — Nassim Taleb</item>
+        <item>\"Buy stocks, take sleeping pills, and when you wake up years later, you\'ll be rich.\" — André Kostolany</item>
+        <item>\"For the patient investor, the stock market is an ATM.\" — André Kostolany</item>
+        <item>\"October: This is one of the peculiarly dangerous months to speculate in stocks. The others are July, January, September, April, November, May, March, June, December, August, and February.\" — Mark Twain</item>
+        <item>\"What will the market do? It will fluctuate.\" — J.P. Morgan</item>
+        <item>\"Investing should be more like watching paint dry or grass grow. If you want excitement, take $800 and go to Las Vegas.\" — Paul Samuelson</item>
+        <item>\"The big money is made not by trading, but by waiting.\" — Stanley Druckenmiller</item>
+        <item>\"The market itself is the best teacher — learn to read its moves.\" — William O\'Neil</item>
+        <item>\"Wealth is built by how you behave when no one is watching.\" — Morgan Housel</item>
+        <item>\"Savings equals income minus ego.\" — Morgan Housel</item>
+    </string-array>
+    <string name="done_count_message">%1$d items added</string>
+    <string name="tip_upload">The \'Holdings\' screen from your brokerage app or the \'Assets\' screen from an exchange works best.</string>
+    <string name="helper_review">Uncheck any misread items, or tap the pencil icon to edit them.</string>
+    <string name="footer_background">Background</string>
+    <string name="footer_retake">Retake</string>
+    <string name="footer_analyze">Analyze</string>
+    <string name="footer_waiting">Waiting</string>
+    <string name="quota_exceeded_message">AI usage limit reached. Retrying… (%1$d/%2$d)\nUpgrade to a paid plan for unlimited access.</string>
+    <string name="footer_add_count">Add %1$d</string>
+
+    <!-- ── Upload · UploadHeader ──────────────────────── -->
+    <string name="upload_pick_title">Add from Screenshot</string>
+    <string name="upload_pick_subtitle">Pick a screen from your brokerage or exchange app.</string>
+    <string name="upload_downloading_title">Downloading AI model</string>
+    <string name="upload_downloading_subtitle">One-time download. Please stay on Wi-Fi.</string>
+    <string name="upload_downloading_progress">Downloading… %1$d%%</string>
+    <string name="upload_parsing_title">AI is analyzing</string>
+    <string name="upload_parsing_subtitle">Results will appear in a few seconds.</string>
+    <string name="upload_review_title">Review results</string>
+    <string name="upload_review_subtitle">Check the items you want to add and confirm.</string>
+    <string name="upload_done_subtitle">Your added assets now appear on Home.</string>
+
+    <!-- ── Upload · ShotGrid ──────────────────────────── -->
+    <string name="cd_screenshot_number">Screenshot #%1$d</string>
+
+    <!-- ── Upload · ParsedRowList ─────────────────────── -->
+    <string name="confidence_label_format">%1$d detected · %2$s%% confidence</string>
+    <string name="parsed_row_detail">%1$s · %2$s · avg %3$s</string>
+    <string name="parsed_row_cash_detail">%1$s · %2$s</string>
+    <string name="label_amount">Amount</string>
+
+    <!-- ── Upload · ParsedRowEditor ───────────────────── -->
+    <string name="title_edit_item">Edit Item</string>
+
+    <!-- ── Tweaks ─────────────────────────────────────── -->
+    <string name="title_tweaks">Tweaks</string>
+    <string name="label_accent_tone">Soft red accent tone</string>
+    <string name="helper_accent">The selected tone applies instantly and persists across launches.</string>
+    <string name="preset_salmon">Salmon</string>
+    <string name="preset_terracotta">Terracotta</string>
+    <string name="preset_coral">Coral</string>
+    <string name="preset_burgundy">Burgundy</string>
+
+    <!-- ── Notification Channels ──────────────────────── -->
+    <string name="notif_daily_summary_name">Daily Portfolio Summary</string>
+    <string name="notif_daily_summary_desc">A 9 AM summary of yesterday\'s changes.</string>
+    <string name="notif_headline_name">Economic Headlines</string>
+    <string name="notif_headline_desc">A daily AI-summarized news briefing.</string>
+    <string name="notif_price_alert_name">Price Alerts</string>
+    <string name="notif_price_alert_desc">Instant alerts for large moves in assets you follow.</string>
+    <string name="notif_screenshot_parse_name">Screenshot Analysis</string>
+    <string name="notif_screenshot_parse_desc">Shows progress while screenshots are being analyzed.</string>
+    <string name="notif_screenshot_parse_message">Analyzing your screenshot…</string>
+
+</resources>
