@@ -65,36 +65,6 @@ AI시대에 개발자가 비즈니스 역량을 키우고, 바이브코딩을 �
 
 ---
 
-## 프로젝트 구조
-
-```
-VisionFolio/
-├── app/                        # Application module
-├── build-logic/                # Convention plugins
-├── core/
-│   ├── analytics/              # Event tracking
-│   ├── common-android/         # Android utilities, MVIViewModel
-│   ├── common-kotlin/          # Pure Kotlin utilities
-│   ├── data/                   # Repository implementations, mock data
-│   ├── domain/                 # Use cases, CSV, compute
-│   ├── local/                  # Room DB, entities, DAOs
-│   ├── model/                  # Domain models (Holding, Portfolio, Chat, Returns, ...)
-│   └── navigation/             # NavRoutes, TopDestination
-├── designsystem/               # VfColors, VfTypography, VfShapes, components
-└── feature/
-    ├── addholding/             # Add/edit holding + manage holdings list
-    ├── chat/                   # AI chat (mock streaming)
-    ├── dividend/               # Dividend insights + guru detail
-    ├── home/                   # Home dashboard
-    ├── returns/                # Annual returns tracking
-    ├── settings/               # Settings + licenses
-    ├── trend/                  # Portfolio trend chart
-    ├── tweaks/                 # Dev tweaks
-    └── upload/                 # Screenshot upload flow
-```
-
----
-
 ## 아키텍처
 
 ```
