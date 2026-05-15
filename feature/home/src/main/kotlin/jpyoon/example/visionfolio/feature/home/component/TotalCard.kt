@@ -77,19 +77,11 @@ fun TotalCard(
 
         DeltaRow(
             label = stringResource(R.string.label_today),
-            amount = summary?.todayChange ?: 0L,
-            pct = summary?.todayPct ?: 0.0,
+            amount = summary?.dayChange ?: 0L,
+            pct = summary?.dayPct ?: 0.0,
             hidden = hideAmounts,
             displayCurrency = displayCurrency,
             modifier = Modifier.padding(top = 14.dp),
-        )
-        DeltaRow(
-            label = stringResource(R.string.label_total_profit),
-            amount = summary?.totalPl ?: 0L,
-            pct = summary?.totalPlPct ?: 0.0,
-            hidden = hideAmounts,
-            displayCurrency = displayCurrency,
-            modifier = Modifier.padding(top = 6.dp),
         )
 
         Row(

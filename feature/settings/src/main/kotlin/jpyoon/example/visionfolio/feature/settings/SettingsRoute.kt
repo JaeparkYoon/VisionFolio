@@ -22,6 +22,8 @@ fun SettingsRoute(
     onOpenAddHolding: () -> Unit,
     onOpenManageHoldings: () -> Unit,
     onOpenLicenses: () -> Unit,
+    onOpenReturns: () -> Unit = {},
+    onOpenAnnouncements: () -> Unit = {},
     toastState: VfToastState = rememberVfToastState(),
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
@@ -71,6 +73,8 @@ fun SettingsRoute(
                 SettingsEffect.NavigateToUpload -> onOpenUpload()
                 SettingsEffect.NavigateToLicenses -> onOpenLicenses()
                 SettingsEffect.NavigateToTerms -> Unit
+                SettingsEffect.NavigateToReturns -> onOpenReturns()
+                SettingsEffect.NavigateToAnnouncements -> onOpenAnnouncements()
                 is SettingsEffect.ExportReady -> {
                     pendingExport = effect.csv
                     createDocLauncher.launch("visionfolio_holdings.csv")

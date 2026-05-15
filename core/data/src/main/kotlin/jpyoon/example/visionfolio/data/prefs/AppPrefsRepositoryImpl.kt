@@ -11,6 +11,7 @@ import jpyoon.example.visionfolio.domain.model.AppPrefs
 import jpyoon.example.visionfolio.domain.model.Currency
 import jpyoon.example.visionfolio.domain.model.NotificationKey
 import jpyoon.example.visionfolio.domain.model.NotificationPrefs
+import jpyoon.example.visionfolio.domain.model.ThemeMode
 import jpyoon.example.visionfolio.data.repository.AppPrefsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -25,6 +26,7 @@ class AppPrefsRepositoryImpl @Inject constructor(
     override fun observePrefs(): Flow<AppPrefs> = dataStore.data.map { prefs ->
         AppPrefs(
             accentPreset = prefs[Keys.Accent]?.toAccentPreset() ?: AccentPreset.SALMON,
+            themeMode = prefs[Keys.ThemeMode]?.toThemeMode() ?: ThemeMode.SYSTEM,
             hideAmounts = prefs[Keys.HideAmounts] ?: false,
             displayCurrency = prefs[Keys.DisplayCurrency]?.toCurrency() ?: Currency.KRW,
             lastSyncAt = prefs[Keys.LastSyncAt] ?: System.currentTimeMillis(),
@@ -42,6 +44,10 @@ class AppPrefsRepositoryImpl @Inject constructor(
 
     override suspend fun setAccent(preset: AccentPreset) {
         dataStore.edit { it[Keys.Accent] = preset.name }
+    }
+
+    override suspend fun setThemeMode(mode: ThemeMode) {
+        dataStore.edit { it[Keys.ThemeMode] = mode.name }
     }
 
     override suspend fun setHideAmounts(hide: Boolean) {
@@ -64,6 +70,7 @@ class AppPrefsRepositoryImpl @Inject constructor(
 
     private object Keys {
         val Accent = stringPreferencesKey("accent_preset")
+        val ThemeMode = stringPreferencesKey("theme_mode")
         val HideAmounts = booleanPreferencesKey("hide_amounts")
         val DisplayCurrency = stringPreferencesKey("display_currency")
         val LastSyncAt = longPreferencesKey("last_sync_at")
@@ -79,3 +86,6 @@ private fun String.toAccentPreset(): AccentPreset? =
 
 private fun String.toCurrency(): Currency? =
     runCatching { Currency.valueOf(this) }.getOrNull()
+
+private fun String.toThemeMode(): ThemeMode? =
+    runCatching { ThemeMode.valueOf(this) }.getOrNull()

@@ -119,7 +119,7 @@ private fun ParsedRow(
                     val detail = buildString {
                         append(row.category.displayName)
                         append(" · ")
-                        append(CurrencyFormatter.format(row.currentPrice.toLong(), row.currency, compact = true))
+                        append(CurrencyFormatter.format(row.currentValue.toLong(), row.currency, compact = true))
                         if (!row.maturityDate.isNullOrBlank()) {
                             append(" · ")
                             append(row.maturityDate)
@@ -138,7 +138,7 @@ private fun ParsedRow(
                             R.string.parsed_row_detail,
                             row.category.displayName,
                             formatQuantity(row.quantity, stringResource(R.string.unit_shares)),
-                            CurrencyFormatter.format(row.avgPrice.toLong(), row.currency, compact = true),
+                            CurrencyFormatter.format(row.currentValue.toLong(), row.currency, compact = true),
                         ),
                         style = VfTypography.MetaSub,
                         color = VfColors.InkTertiary,

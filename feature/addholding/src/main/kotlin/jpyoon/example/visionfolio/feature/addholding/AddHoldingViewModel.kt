@@ -29,9 +29,9 @@ class AddHoldingViewModel @Inject constructor(
                 name = holding.name,
                 code = holding.code,
                 quantity = if (holding.quantity % 1.0 == 0.0) holding.quantity.toLong().toString() else holding.quantity.toString(),
-                avgPrice = if (holding.avgPrice % 1.0 == 0.0) holding.avgPrice.toLong().toString() else holding.avgPrice.toString(),
-                currentPrice = if (holding.currentPrice % 1.0 == 0.0) holding.currentPrice.toLong().toString() else holding.currentPrice.toString(),
+                currentValue = if (holding.currentValue % 1.0 == 0.0) holding.currentValue.toLong().toString() else holding.currentValue.toString(),
                 maturityDate = holding.maturityDate.orEmpty(),
+                excludedFromAllocation = holding.excludedFromAllocation,
             )
         }
     }
@@ -43,9 +43,9 @@ class AddHoldingViewModel @Inject constructor(
             is AddHoldingIntent.SetName -> setState { copy(name = intent.value, error = null) }
             is AddHoldingIntent.SetCode -> setState { copy(code = intent.value) }
             is AddHoldingIntent.SetQuantity -> setState { copy(quantity = intent.value.filterDouble()) }
-            is AddHoldingIntent.SetAvgPrice -> setState { copy(avgPrice = intent.value.filterDouble()) }
-            is AddHoldingIntent.SetCurrentPrice -> setState { copy(currentPrice = intent.value.filterDouble()) }
+            is AddHoldingIntent.SetCurrentValue -> setState { copy(currentValue = intent.value.filterDouble()) }
             is AddHoldingIntent.SetMaturityDate -> setState { copy(maturityDate = intent.value) }
+            is AddHoldingIntent.SetExcludedFromAllocation -> setState { copy(excludedFromAllocation = intent.value) }
             AddHoldingIntent.Submit -> submit()
             AddHoldingIntent.Dismiss -> setEffect { AddHoldingEffect.Close }
         }
@@ -56,16 +56,10 @@ class AddHoldingViewModel @Inject constructor(
         if (!snapshot.canSubmit) return
         setState { copy(isSubmitting = true, error = null) }
         viewModelScope.launch {
-            val isCash = snapshot.category.isCash
             val isBond = snapshot.category.isBond
-            val resolvedQuantity = when {
-                isCash -> snapshot.quantity.toDouble()
-                isBond -> 1.0
-                else -> snapshot.quantity.toDouble()
-            }
-            val resolvedAvgPrice = if (isCash) 1.0 else snapshot.avgPrice.toDouble()
-            val resolvedCurrentPrice = if (isCash) 1.0 else snapshot.currentPrice.toDouble()
-            val resolvedCode = if (isCash) "" else snapshot.code
+            val resolvedQuantity = snapshot.quantity.toDoubleOrNull() ?: 1.0
+            val resolvedCurrentValue = snapshot.currentValue.toDouble()
+            val resolvedCode = snapshot.code
             val resolvedMaturityDate = if (isBond) snapshot.maturityDate.ifBlank { null } else null
             if (snapshot.editingId != null) {
                 runCatching {
@@ -76,10 +70,10 @@ class AddHoldingViewModel @Inject constructor(
                             name = snapshot.name,
                             code = resolvedCode,
                             quantity = resolvedQuantity,
-                            avgPrice = resolvedAvgPrice,
-                            currentPrice = resolvedCurrentPrice,
+                            currentValue = resolvedCurrentValue,
                             currency = snapshot.currency,
                             maturityDate = resolvedMaturityDate,
+                            excludedFromAllocation = snapshot.excludedFromAllocation,
                         ),
                     )
                 }.onSuccess {
@@ -97,10 +91,10 @@ class AddHoldingViewModel @Inject constructor(
                             name = snapshot.name,
                             code = resolvedCode,
                             quantity = resolvedQuantity,
-                            avgPrice = resolvedAvgPrice,
-                            currentPrice = resolvedCurrentPrice,
+                            currentValue = resolvedCurrentValue,
                             currency = snapshot.currency,
                             maturityDate = resolvedMaturityDate,
+                            excludedFromAllocation = snapshot.excludedFromAllocation,
                         ),
                     )
                 }.onSuccess { added ->

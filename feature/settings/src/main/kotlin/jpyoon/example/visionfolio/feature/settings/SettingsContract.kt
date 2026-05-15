@@ -5,6 +5,7 @@ import jpyoon.example.visionfolio.core.android.ViewEffect
 import jpyoon.example.visionfolio.core.android.ViewState
 import jpyoon.example.visionfolio.domain.model.NotificationKey
 import jpyoon.example.visionfolio.domain.model.NotificationPrefs
+import jpyoon.example.visionfolio.domain.model.ThemeMode
 import jpyoon.example.visionfolio.domain.model.UserProfile
 
 data class SettingsState(
@@ -13,6 +14,7 @@ data class SettingsState(
     val lastSyncAt: Long = 0L,
     val notifications: NotificationPrefs = NotificationPrefs(),
     val appVersion: String = "1.0.0",
+    val themeMode: ThemeMode = ThemeMode.SYSTEM,
 ) : ViewState
 
 sealed interface SettingsIntent : ViewIntent {
@@ -24,6 +26,9 @@ sealed interface SettingsIntent : ViewIntent {
     object OpenTerms : SettingsIntent
     object RequestExport : SettingsIntent
     data class ImportFromText(val text: String) : SettingsIntent
+    data class SetThemeMode(val mode: ThemeMode) : SettingsIntent
+    object OpenReturns : SettingsIntent
+    object OpenAnnouncements : SettingsIntent
 }
 
 sealed interface SettingsEffect : ViewEffect {
@@ -32,6 +37,8 @@ sealed interface SettingsEffect : ViewEffect {
     object NavigateToUpload : SettingsEffect
     object NavigateToLicenses : SettingsEffect
     object NavigateToTerms : SettingsEffect
+    object NavigateToReturns : SettingsEffect
+    object NavigateToAnnouncements : SettingsEffect
     data class ExportReady(val csv: String) : SettingsEffect
     data class ImportCompleted(val count: Int) : SettingsEffect
     data class ShowError(val message: String) : SettingsEffect

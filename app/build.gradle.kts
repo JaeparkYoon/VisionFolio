@@ -47,6 +47,8 @@ dependencies {
     implementation(project(":feature:addholding"))
     implementation(project(":feature:tweaks"))
     implementation(project(":feature:dividend"))
+    implementation(project(":feature:chat"))
+    implementation(project(":feature:returns"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

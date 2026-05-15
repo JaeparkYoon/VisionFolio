@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import jpyoon.example.visionfolio.domain.model.AccentPreset
+import jpyoon.example.visionfolio.domain.model.ThemeMode
 
 val LocalAccent = staticCompositionLocalOf { VfAccentPalette.of(AccentPreset.SALMON) }
 
@@ -53,7 +54,12 @@ private fun materialScheme(scheme: VfColorScheme, accent: AccentColors, dark: Bo
 @Composable
 fun VisionFolioTheme(
     accentPreset: AccentPreset = AccentPreset.SALMON,
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    themeMode: ThemeMode = ThemeMode.SYSTEM,
+    darkTheme: Boolean = when (themeMode) {
+        ThemeMode.LIGHT -> false
+        ThemeMode.DARK -> true
+        ThemeMode.SYSTEM -> isSystemInDarkTheme()
+    },
     content: @Composable () -> Unit,
 ) {
     val accent = VfAccentPalette.of(accentPreset, dark = darkTheme)

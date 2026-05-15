@@ -27,4 +27,7 @@ object NavRoutes {
     const val EDIT_HOLDINGS = "edit_holdings"
     const val LICENSES = "licenses"
     const val GURU_DETAIL = "guru_detail/{guruId}"
+    const val CHAT = "chat"
+    const val RETURNS = "returns"
+    const val ANNOUNCEMENTS = "announcements"
 }

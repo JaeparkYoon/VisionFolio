@@ -57,15 +57,12 @@ class ObserveHomeData @Inject constructor(
         val (withCode, withoutCode) = holdings.partition { it.code.isNotBlank() }
         val mergedByCode = withCode.groupBy { it.code }.map { (_, group) ->
             if (group.size == 1) return@map group.first()
+            val totalValue = group.sumOf { it.currentValue }
             val totalQty = group.sumOf { it.quantity }
-            val weightedAvg = if (totalQty > 0) {
-                group.sumOf { it.quantity * it.avgPrice } / totalQty
-            } else 0.0
             group.first().copy(
                 id = group.first().id,
                 quantity = totalQty,
-                avgPrice = weightedAvg,
-                currentPrice = group.maxByOrNull { it.currentPrice }?.currentPrice ?: group.first().currentPrice,
+                currentValue = totalValue,
                 source = "",
             )
         }

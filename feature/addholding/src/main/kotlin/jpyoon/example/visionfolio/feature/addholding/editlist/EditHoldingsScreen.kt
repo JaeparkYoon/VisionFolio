@@ -129,15 +129,15 @@ private fun HoldingRow(
             Spacer(Modifier.height(2.dp))
             val detail = when {
                 holding.category.isCash -> {
-                    "${holding.category.displayName} · ${holding.currency.name} ${nf.format(holding.quantity.toLong())}"
+                    "${holding.category.displayName} · ${holding.currency.name} ${nf.format(holding.currentValue.toLong())}"
                 }
                 holding.category.isBond -> {
                     val maturity = holding.maturityDate
-                    val base = "${holding.category.displayName} · ${holding.currency.name} ${nf.format(holding.avgPrice.toLong())}"
+                    val base = "${holding.category.displayName} · ${holding.currency.name} ${nf.format(holding.currentValue.toLong())}"
                     if (maturity.isNullOrBlank()) base else "$base · $maturity"
                 }
                 else -> {
-                    "${holding.category.displayName} · ${nf.format(holding.quantity)} ${stringResource(R.string.unit_shares)} · ${holding.currency.name} ${nf.format(holding.currentPrice.toLong())}"
+                    "${holding.category.displayName} · ${holding.currency.name} ${nf.format(holding.currentValue.toLong())}"
                 }
             }
             Text(

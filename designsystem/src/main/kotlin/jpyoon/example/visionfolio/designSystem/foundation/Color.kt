@@ -123,6 +123,9 @@ object VfCategoryColors {
     val Cash = Color(0xFFA89B85)
     val Pension = Color(0xFF8A7F72)
 
+    val Savings = Color(0xFF9BB09A)
+    val Other = Color(0xFFB8A99A)
+
     fun of(category: AssetCategory): Color = when (category) {
         AssetCategory.DOMESTIC_STOCK -> DomesticStock
         AssetCategory.OVERSEAS_STOCK -> OverseasStock
@@ -131,5 +134,7 @@ object VfCategoryColors {
         AssetCategory.BOND -> Bond
         AssetCategory.CASH -> Cash
         AssetCategory.PENSION -> Pension
+        AssetCategory.SAVINGS -> Savings
+        AssetCategory.OTHER -> Other
     }
 }

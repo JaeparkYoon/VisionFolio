@@ -7,9 +7,12 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import jpyoon.example.visionfolio.data.portfolio.db.VfDatabase
+import jpyoon.example.visionfolio.data.portfolio.db.chat.ChatDao
 import jpyoon.example.visionfolio.data.portfolio.db.dividend.DividendCacheDao
+import jpyoon.example.visionfolio.data.portfolio.db.dividendoverride.DividendOverrideDao
 import jpyoon.example.visionfolio.data.portfolio.db.holding.HoldingDao
 import jpyoon.example.visionfolio.data.portfolio.db.importsource.ImportSourceDao
+import jpyoon.example.visionfolio.data.portfolio.db.returns.ReturnEntryDao
 import jpyoon.example.visionfolio.data.portfolio.db.snapshot.SnapshotDao
 import javax.inject.Singleton
 
@@ -33,4 +36,13 @@ object LocalModule {
 
     @Provides
     fun provideDividendCacheDao(database: VfDatabase): DividendCacheDao = database.dividendCacheDao()
+
+    @Provides
+    fun provideChatDao(database: VfDatabase): ChatDao = database.chatDao()
+
+    @Provides
+    fun provideReturnEntryDao(database: VfDatabase): ReturnEntryDao = database.returnEntryDao()
+
+    @Provides
+    fun provideDividendOverrideDao(database: VfDatabase): DividendOverrideDao = database.dividendOverrideDao()
 }

@@ -9,4 +9,6 @@ val AssetCategory.displayName: String
         AssetCategory.BOND -> "채권"
         AssetCategory.CASH -> "예적금"
         AssetCategory.PENSION -> "연금/IRP"
+        AssetCategory.SAVINGS -> "적금"
+        AssetCategory.OTHER -> "기타"
     }
