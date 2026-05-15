@@ -30,7 +30,7 @@ class SettingsViewModel @Inject constructor(
         }.launchIn(viewModelScope)
 
         appPrefsRepo.observePrefs().onEach { prefs ->
-            setState { copy(lastSyncAt = prefs.lastSyncAt, appVersion = prefs.version) }
+            setState { copy(lastSyncAt = prefs.lastSyncAt, appVersion = prefs.version, themeMode = prefs.themeMode) }
         }.launchIn(viewModelScope)
 
         holdingRepo.observe().onEach { holdings ->
@@ -48,6 +48,11 @@ class SettingsViewModel @Inject constructor(
             is SettingsIntent.ToggleNotification -> appPrefsRepo.toggleNotification(intent.key)
             SettingsIntent.RequestExport -> exportNow()
             is SettingsIntent.ImportFromText -> importNow(intent.text)
+            is SettingsIntent.SetThemeMode -> {
+                appPrefsRepo.setThemeMode(intent.mode)
+            }
+            SettingsIntent.OpenReturns -> setEffect { SettingsEffect.NavigateToReturns }
+            SettingsIntent.OpenAnnouncements -> setEffect { SettingsEffect.NavigateToAnnouncements }
         }
     }
 

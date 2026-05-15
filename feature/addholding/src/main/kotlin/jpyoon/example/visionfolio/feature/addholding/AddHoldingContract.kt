@@ -15,30 +15,15 @@ data class AddHoldingState(
     val name: String = "",
     val code: String = "",
     val quantity: String = "",
-    val avgPrice: String = "",
-    val currentPrice: String = "",
+    val currentValue: String = "",
     val maturityDate: String = "",
+    val excludedFromAllocation: Boolean = false,
     val isSubmitting: Boolean = false,
     val error: String? = null,
 ) : ViewState {
     val canSubmit: Boolean
-        get() = when {
-            category.isCash -> {
-                name.isNotBlank() &&
-                    quantity.toDoubleOrNull()?.let { it > 0 } == true
-            }
-            category.isBond -> {
-                name.isNotBlank() &&
-                    avgPrice.toDoubleOrNull()?.let { it >= 0 } == true &&
-                    currentPrice.toDoubleOrNull()?.let { it >= 0 } == true
-            }
-            else -> {
-                name.isNotBlank() &&
-                    quantity.toDoubleOrNull()?.let { it > 0 } == true &&
-                    avgPrice.toDoubleOrNull()?.let { it >= 0 } == true &&
-                    currentPrice.toDoubleOrNull()?.let { it >= 0 } == true
-            }
-        }
+        get() = name.isNotBlank() &&
+            currentValue.toDoubleOrNull()?.let { it >= 0 } == true
 }
 
 sealed interface AddHoldingIntent : ViewIntent {
@@ -47,9 +32,9 @@ sealed interface AddHoldingIntent : ViewIntent {
     data class SetName(val value: String) : AddHoldingIntent
     data class SetCode(val value: String) : AddHoldingIntent
     data class SetQuantity(val value: String) : AddHoldingIntent
-    data class SetAvgPrice(val value: String) : AddHoldingIntent
-    data class SetCurrentPrice(val value: String) : AddHoldingIntent
+    data class SetCurrentValue(val value: String) : AddHoldingIntent
     data class SetMaturityDate(val value: String) : AddHoldingIntent
+    data class SetExcludedFromAllocation(val value: Boolean) : AddHoldingIntent
     object Submit : AddHoldingIntent
     object Dismiss : AddHoldingIntent
 }

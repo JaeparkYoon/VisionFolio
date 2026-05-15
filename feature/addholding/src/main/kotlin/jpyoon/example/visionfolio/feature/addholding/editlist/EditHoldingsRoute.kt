@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.graphics.Color
+import jpyoon.example.visionfolio.designsystem.foundation.VfColors
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jpyoon.example.visionfolio.designsystem.component.VfToastState
@@ -45,7 +45,7 @@ fun EditHoldingsRoute(
         ModalBottomSheet(
             onDismissRequest = { viewModel.dispatch(EditHoldingsIntent.DismissEdit) },
             sheetState = editSheetState,
-            containerColor = Color.White,
+            containerColor = VfColors.Card,
         ) {
             AddHoldingRoute(
                 onDismiss = {

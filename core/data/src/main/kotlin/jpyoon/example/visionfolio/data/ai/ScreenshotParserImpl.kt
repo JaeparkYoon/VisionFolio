@@ -42,8 +42,7 @@ class ScreenshotParserImpl @Inject constructor(
         name = name,
         code = code,
         quantity = quantity,
-        avgPrice = avgPrice,
-        currentPrice = currentPrice,
+        currentValue = currentValue,
         currency = currency,
         confidence = DEFAULT_CONFIDENCE,
     )

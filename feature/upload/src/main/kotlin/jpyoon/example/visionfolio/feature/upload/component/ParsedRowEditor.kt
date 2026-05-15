@@ -44,7 +44,7 @@ fun ParsedRowEditorSheet(
     onEdit: (ParsedField, String) -> Unit,
     onDismiss: () -> Unit,
 ) {
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState, containerColor = Color.White) {
+    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState, containerColor = VfColors.Card) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -56,49 +56,22 @@ fun ParsedRowEditorSheet(
                 label = stringResource(if (row.category.isBond) R.string.label_bond_name else R.string.label_stock_name),
                 initial = row.name,
             ) { new -> onEdit(ParsedField.NAME, new) }
-            when {
-                row.category.isCash -> {
-                    FieldGroup(
-                        label = stringResource(R.string.label_amount),
-                        initial = row.quantity.formatNumber(),
-                        keyboardType = KeyboardType.Decimal,
-                    ) { new -> onEdit(ParsedField.QUANTITY, new) }
-                }
-                row.category.isBond -> {
-                    FieldGroup(stringResource(R.string.label_stock_code), row.code) { new -> onEdit(ParsedField.CODE, new) }
-                    FieldGroup(
-                        label = stringResource(R.string.label_total_purchase_amount),
-                        initial = row.avgPrice.formatNumber(),
-                        keyboardType = KeyboardType.Decimal,
-                    ) { new -> onEdit(ParsedField.AVG_PRICE, new) }
-                    FieldGroup(
-                        label = stringResource(R.string.label_total_valuation),
-                        initial = row.currentPrice.formatNumber(),
-                        keyboardType = KeyboardType.Decimal,
-                    ) { new -> onEdit(ParsedField.CURRENT_PRICE, new) }
-                    FieldGroup(
-                        label = stringResource(R.string.label_maturity_date),
-                        initial = row.maturityDate.orEmpty(),
-                    ) { new -> onEdit(ParsedField.MATURITY_DATE, new) }
-                }
-                else -> {
-                    FieldGroup(stringResource(R.string.label_stock_code), row.code) { new -> onEdit(ParsedField.CODE, new) }
-                    FieldGroup(
-                        label = stringResource(R.string.label_quantity),
-                        initial = row.quantity.formatNumber(),
-                        keyboardType = KeyboardType.Decimal,
-                    ) { new -> onEdit(ParsedField.QUANTITY, new) }
-                    FieldGroup(
-                        label = stringResource(R.string.label_avg_price),
-                        initial = row.avgPrice.formatNumber(),
-                        keyboardType = KeyboardType.Decimal,
-                    ) { new -> onEdit(ParsedField.AVG_PRICE, new) }
-                    FieldGroup(
-                        label = stringResource(R.string.label_current_price),
-                        initial = row.currentPrice.formatNumber(),
-                        keyboardType = KeyboardType.Decimal,
-                    ) { new -> onEdit(ParsedField.CURRENT_PRICE, new) }
-                }
+
+            if (!row.category.isCash) {
+                FieldGroup(stringResource(R.string.label_stock_code), row.code) { new -> onEdit(ParsedField.CODE, new) }
+            }
+
+            FieldGroup(
+                label = stringResource(R.string.label_total_valuation),
+                initial = row.currentValue.formatNumber(),
+                keyboardType = KeyboardType.Decimal,
+            ) { new -> onEdit(ParsedField.CURRENT_VALUE, new) }
+
+            if (row.category.isBond) {
+                FieldGroup(
+                    label = stringResource(R.string.label_maturity_date),
+                    initial = row.maturityDate.orEmpty(),
+                ) { new -> onEdit(ParsedField.MATURITY_DATE, new) }
             }
 
             Text(

@@ -2,6 +2,8 @@ package jpyoon.example.visionfolio.domain.model
 
 enum class AccentPreset { SALMON, TERRACOTTA, CORAL, BURGUNDY }
 
+enum class ThemeMode { SYSTEM, LIGHT, DARK }
+
 enum class NotificationKey { DAILY_SUMMARY, HEADLINE_NEWS, PRICE_ALERT }
 
 data class NotificationPrefs(
@@ -12,6 +14,7 @@ data class NotificationPrefs(
 
 data class AppPrefs(
     val accentPreset: AccentPreset = AccentPreset.SALMON,
+    val themeMode: ThemeMode = ThemeMode.SYSTEM,
     val hideAmounts: Boolean = false,
     val displayCurrency: Currency = Currency.KRW,
     val lastSyncAt: Long,

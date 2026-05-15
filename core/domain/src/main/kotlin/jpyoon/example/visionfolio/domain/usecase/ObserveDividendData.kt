@@ -48,8 +48,9 @@ class ObserveDividendData @Inject constructor(
                 val paymentsPerYear = frequency.paymentsPerYear
                 val annualDps = latest.dividendPerShare * paymentsPerYear
                 val annualTotal = annualDps * holding.quantity
-                val yield = if (holding.currentPrice > 0) {
-                    (annualDps / holding.currentPrice) * 100.0
+                val pricePerUnit = if (holding.quantity > 0) holding.currentValue / holding.quantity else 0.0
+                val yield = if (pricePerUnit > 0) {
+                    (annualDps / pricePerUnit) * 100.0
                 } else 0.0
 
                 HoldingDividendInfo(

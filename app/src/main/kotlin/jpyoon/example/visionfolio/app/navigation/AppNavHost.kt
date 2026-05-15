@@ -22,10 +22,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import jpyoon.example.visionfolio.designsystem.component.VfToastHost
 import jpyoon.example.visionfolio.designsystem.component.rememberVfToastState
-import androidx.compose.ui.graphics.Color
+import jpyoon.example.visionfolio.designsystem.foundation.VfColors
 import jpyoon.example.visionfolio.feature.addholding.editlist.editHoldingsScreen
 import jpyoon.example.visionfolio.feature.addholding.navigation.AddHoldingSheetScreen
+import jpyoon.example.visionfolio.feature.chat.navigation.chatScreen
 import jpyoon.example.visionfolio.feature.home.navigation.homeScreen
+import jpyoon.example.visionfolio.feature.returns.navigation.returnsScreen
 import jpyoon.example.visionfolio.feature.settings.navigation.licensesScreen
 import jpyoon.example.visionfolio.feature.settings.navigation.settingsScreen
 import jpyoon.example.visionfolio.feature.dividend.guru.guruDetailScreen
@@ -112,6 +114,12 @@ fun AppNavHost() {
                             launchSingleTop = true
                         }
                     },
+                    onOpenReturns = {
+                        navController.navigate(NavRoutes.RETURNS) {
+                            launchSingleTop = true
+                        }
+                    },
+                    onOpenAnnouncements = { },
                     toastState = toastState,
                 )
                 licensesScreen(
@@ -126,6 +134,12 @@ fun AppNavHost() {
                     onCommit = { added ->
                         toastState.show("${added}건이 추가되었어요")
                     },
+                )
+                chatScreen(
+                    onBack = { navController.popBackStack() },
+                )
+                returnsScreen(
+                    onBack = { navController.popBackStack() },
                 )
             }
 
@@ -155,7 +169,7 @@ fun AppNavHost() {
         ModalBottomSheet(
             onDismissRequest = { showAddHoldingSheet = false },
             sheetState = addHoldingSheetState,
-            containerColor = Color.White,
+            containerColor = VfColors.Card,
         ) {
             AddHoldingSheetScreen(
                 onDismiss = dismissAddHolding,

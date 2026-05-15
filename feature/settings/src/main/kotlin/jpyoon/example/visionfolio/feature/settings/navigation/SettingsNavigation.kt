@@ -12,6 +12,8 @@ fun NavGraphBuilder.settingsScreen(
     onOpenAddHolding: () -> Unit,
     onOpenManageHoldings: () -> Unit,
     onOpenLicenses: () -> Unit,
+    onOpenReturns: () -> Unit,
+    onOpenAnnouncements: () -> Unit,
     toastState: VfToastState,
 ) {
     composable(NavRoutes.SETTINGS) {
@@ -20,6 +22,8 @@ fun NavGraphBuilder.settingsScreen(
             onOpenAddHolding = onOpenAddHolding,
             onOpenManageHoldings = onOpenManageHoldings,
             onOpenLicenses = onOpenLicenses,
+            onOpenReturns = onOpenReturns,
+            onOpenAnnouncements = onOpenAnnouncements,
             toastState = toastState,
         )
     }

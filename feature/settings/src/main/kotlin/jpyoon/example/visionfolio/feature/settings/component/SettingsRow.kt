@@ -26,6 +26,7 @@ import jpyoon.example.visionfolio.designsystem.foundation.VfTypography
 sealed interface RowTrailing {
     data class Text(val value: String) : RowTrailing
     data class Toggle(val checked: Boolean, val onChange: (Boolean) -> Unit) : RowTrailing
+    data class Custom(val content: @Composable () -> Unit) : RowTrailing
     object Chevron : RowTrailing
     object None : RowTrailing
 }
@@ -80,6 +81,7 @@ fun SettingsRow(
                 checked = trailing.checked,
                 onCheckedChange = trailing.onChange,
             )
+            is RowTrailing.Custom -> trailing.content()
             RowTrailing.Chevron -> Icon(
                 imageVector = Icons.Outlined.ChevronRight,
                 contentDescription = null,

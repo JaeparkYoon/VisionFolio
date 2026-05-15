@@ -8,10 +8,15 @@ enum class AssetCategory {
     BOND,
     CASH,
     PENSION,
+    SAVINGS,
+    OTHER,
 }
 
 val AssetCategory.isCash: Boolean get() = this == AssetCategory.CASH
 val AssetCategory.isBond: Boolean get() = this == AssetCategory.BOND
+val AssetCategory.isSavings: Boolean get() = this == AssetCategory.SAVINGS
+val AssetCategory.isPension: Boolean get() = this == AssetCategory.PENSION
+val AssetCategory.isOther: Boolean get() = this == AssetCategory.OTHER
 
 enum class Currency { KRW, USD }
 
@@ -21,27 +26,23 @@ data class Holding(
     val name: String,
     val code: String,
     val quantity: Double,
-    val avgPrice: Double,
-    val currentPrice: Double,
+    val currentValue: Double,
     val currency: Currency,
     val maturityDate: String? = null,
     val source: String = "",
+    val sector: Sector? = null,
+    val excludedFromAllocation: Boolean = false,
 )
 
 data class EnrichedHolding(
     val holding: Holding,
     val valueKrw: Long,
-    val costKrw: Long,
-    val plKrw: Long,
-    val plPct: Double,
 )
 
 data class PortfolioSummary(
     val totalValue: Long,
-    val totalCost: Long,
-    val totalPl: Long,
-    val totalPlPct: Double,
     val byCategory: Map<AssetCategory, Long>,
-    val todayChange: Long,
-    val todayPct: Double,
+    val dayChange: Long,
+    val dayPct: Double,
+    val prevTimestamp: Long? = null,
 )

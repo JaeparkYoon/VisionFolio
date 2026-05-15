@@ -256,8 +256,7 @@ private fun List<ParsedHolding>.mapIndexedEdit(
         ParsedField.NAME -> row.copy(name = value)
         ParsedField.CODE -> row.copy(code = value)
         ParsedField.QUANTITY -> row.copy(quantity = value.toDoubleOrNull() ?: row.quantity)
-        ParsedField.AVG_PRICE -> row.copy(avgPrice = value.toDoubleOrNull() ?: row.avgPrice)
-        ParsedField.CURRENT_PRICE -> row.copy(currentPrice = value.toDoubleOrNull() ?: row.currentPrice)
+        ParsedField.CURRENT_VALUE -> row.copy(currentValue = value.toDoubleOrNull() ?: row.currentValue)
         ParsedField.CATEGORY -> row.copy(
             category = runCatching { AssetCategory.valueOf(value) }.getOrDefault(row.category),
         )

@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 import jpyoon.example.visionfolio.domain.model.AssetCategory
 import jpyoon.example.visionfolio.domain.model.Currency
 import jpyoon.example.visionfolio.domain.model.Holding
+import jpyoon.example.visionfolio.domain.model.Sector
 
 @Entity(tableName = "holdings")
 data class HoldingEntity(
@@ -13,11 +14,12 @@ data class HoldingEntity(
     val name: String,
     val code: String,
     val quantity: Double,
-    val avgPrice: Double,
-    val currentPrice: Double,
+    val currentValue: Double,
     val currency: String,
     val maturityDate: String? = null,
     val source: String = "",
+    val sector: String? = null,
+    val excludedFromAllocation: Boolean = false,
 )
 
 fun HoldingEntity.toDomain(): Holding = Holding(
@@ -26,11 +28,12 @@ fun HoldingEntity.toDomain(): Holding = Holding(
     name = name,
     code = code,
     quantity = quantity,
-    avgPrice = avgPrice,
-    currentPrice = currentPrice,
+    currentValue = currentValue,
     currency = Currency.valueOf(currency),
     maturityDate = maturityDate,
     source = source,
+    sector = sector?.let { runCatching { Sector.valueOf(it) }.getOrNull() },
+    excludedFromAllocation = excludedFromAllocation,
 )
 
 fun Holding.toEntity(): HoldingEntity = HoldingEntity(
@@ -39,9 +42,10 @@ fun Holding.toEntity(): HoldingEntity = HoldingEntity(
     name = name,
     code = code,
     quantity = quantity,
-    avgPrice = avgPrice,
-    currentPrice = currentPrice,
+    currentValue = currentValue,
     currency = currency.name,
     maturityDate = maturityDate,
     source = source,
+    sector = sector?.name,
+    excludedFromAllocation = excludedFromAllocation,
 )
