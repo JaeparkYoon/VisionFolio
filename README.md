@@ -15,7 +15,7 @@
   <img alt="kotlin"   src="https://img.shields.io/badge/Kotlin-2.0-7F52FF?logo=kotlin&logoColor=white" />
   <img alt="compose"  src="https://img.shields.io/badge/Jetpack_Compose-Material_3-4285F4?logo=jetpackcompose&logoColor=white" />
   <img alt="minSdk"   src="https://img.shields.io/badge/minSdk-28-555" />
-  <img alt="license"  src="https://img.shields.io/badge/license-MIT-black" />
+  <img alt="license"  src="https://img.shields.io/badge/license-Apache_2.0-black" />
 </p>
 
 ---
@@ -105,4 +105,4 @@ data (repo · prefs · mock)
 
 ## 📄 License
 
-MIT © 2026 VisionFolio
+Apache License 2.0 © 2026 VisionFolio
