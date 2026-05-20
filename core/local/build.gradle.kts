@@ -1,16 +1,35 @@
-import com.android.build.api.dsl.LibraryExtension
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryExtension
 
 plugins {
-    id("visionfolio.android.library")
-    id("visionfolio.android.room")
-    id("visionfolio.android.hilt")
+    id("visionfolio.kmp.library")
+    alias(libs.plugins.androidx.room)
+    alias(libs.plugins.google.ksp)
 }
 
-configure<LibraryExtension> {
-    namespace = "jpyoon.example.visionfolio.core.local"
+kotlin {
+    (this as org.gradle.api.plugins.ExtensionAware).extensions
+        .configure(KotlinMultiplatformAndroidLibraryExtension::class.java) {
+            namespace = "jpyoon.example.visionfolio.core.local"
+        }
+
+    sourceSets {
+        commonMain.dependencies {
+            api(project(":core:model"))
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.kotlinx.serialization.json)
+        }
+    }
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {
-    implementation(project(":core:model"))
-    implementation(libs.kotlinx.serialization.json)
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
+    add("kspIosX64", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
 }

@@ -9,8 +9,10 @@ configure<LibraryExtension> {
 }
 
 dependencies {
+    api(project(":core:common-kotlin"))
     api(libs.kotlinx.coroutines.core)
     api(libs.kotlinx.coroutines.android)
+    api(libs.timber)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

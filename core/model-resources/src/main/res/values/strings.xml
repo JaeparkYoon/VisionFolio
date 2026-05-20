@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ── AssetCategory display names ─────────────────── -->
+    <string name="category_domestic_stock">국내주식</string>
+    <string name="category_overseas_stock">해외주식</string>
+    <string name="category_etf">ETF</string>
+    <string name="category_crypto">암호화폐</string>
+    <string name="category_bond">채권</string>
+    <string name="category_cash">현금</string>
+    <string name="category_pension">연금/IRP</string>
+    <string name="category_savings">예적금</string>
+    <string name="category_other">기타</string>
+
+</resources>

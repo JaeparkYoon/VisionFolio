@@ -14,6 +14,7 @@ dependencies {
     compileOnly(libs.kotlin.gradle.plugin)
     compileOnly(libs.ksp.gradle.plugin)
     compileOnly(libs.compose.gradle.plugin)
+    compileOnly(libs.androidx.room.gradle.plugin)
 }
 
 gradlePlugin {
@@ -34,17 +35,21 @@ gradlePlugin {
             id = "visionfolio.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
-        register("androidFeature") {
-            id = "visionfolio.android.feature"
-            implementationClass = "AndroidFeatureConventionPlugin"
-        }
-        register("androidHilt") {
-            id = "visionfolio.android.hilt"
-            implementationClass = "HiltConventionPlugin"
-        }
         register("androidRoom") {
             id = "visionfolio.android.room"
             implementationClass = "RoomConventionPlugin"
+        }
+        register("kmpLibrary") {
+            id = "visionfolio.kmp.library"
+            implementationClass = "KmpLibraryConventionPlugin"
+        }
+        register("kmpFeature") {
+            id = "visionfolio.kmp.feature"
+            implementationClass = "KmpFeatureConventionPlugin"
+        }
+        register("kotlinInject") {
+            id = "visionfolio.kotlin.inject"
+            implementationClass = "KotlinInjectConventionPlugin"
         }
     }
 }

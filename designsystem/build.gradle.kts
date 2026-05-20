@@ -11,6 +11,8 @@ configure<LibraryExtension> {
 
 dependencies {
     implementation(project(":core:model"))
+    implementation(project(":core:repository-api"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.coil.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 }

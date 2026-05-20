@@ -10,5 +10,6 @@ configure<LibraryExtension> {
 }
 
 dependencies {
+    api(libs.timber)
     implementation(libs.androidx.core.ktx)
 }

@@ -1,0 +1,3 @@
+package jpyoon.example.visionfolio.domain.model
+
+enum class Sector { TECHNOLOGY, HEALTHCARE, FINANCE, ENERGY, CONSUMER, INDUSTRIAL, MATERIALS, UTILITIES, REAL_ESTATE, COMMUNICATION, OTHER }
