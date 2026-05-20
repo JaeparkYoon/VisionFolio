@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ── AssetCategory display names ─────────────────── -->
+    <string name="category_domestic_stock">Domestic Stock</string>
+    <string name="category_overseas_stock">Overseas Stock</string>
+    <string name="category_etf">ETF</string>
+    <string name="category_crypto">Crypto</string>
+    <string name="category_bond">Bond</string>
+    <string name="category_cash">Cash</string>
+    <string name="category_pension">Pension/IRP</string>
+    <string name="category_savings">Savings</string>
+    <string name="category_other">Other</string>
+
+</resources>

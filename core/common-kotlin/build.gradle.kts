@@ -1,14 +1,22 @@
-import com.android.build.api.dsl.LibraryExtension
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryExtension
 
 plugins {
-    id("visionfolio.android.library")
+    id("visionfolio.kmp.library")
 }
 
-configure<LibraryExtension> {
-    namespace = "jpyoon.example.visionfolio.core.common"
-}
+kotlin {
+    (this as org.gradle.api.plugins.ExtensionAware).extensions
+        .configure(KotlinMultiplatformAndroidLibraryExtension::class.java) {
+            namespace = "jpyoon.example.visionfolio.core.common"
+        }
 
-dependencies {
-    implementation(libs.javax.inject)
-    api(libs.kotlinx.coroutines.core)
+    sourceSets {
+        commonMain.dependencies {
+            api(libs.kotlinx.coroutines.core)
+            api(libs.kotlin.inject.runtime)
+        }
+        androidMain.dependencies {
+            implementation(libs.androidx.lifecycle.viewmodel.ktx)
+        }
+    }
 }

@@ -1,9 +1,12 @@
-import com.android.build.api.dsl.LibraryExtension
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryExtension
 
 plugins {
-    id("visionfolio.android.library")
+    id("visionfolio.kmp.library")
 }
 
-configure<LibraryExtension> {
-    namespace = "jpyoon.example.visionfolio.core.model"
+kotlin {
+    (this as org.gradle.api.plugins.ExtensionAware).extensions
+        .configure(KotlinMultiplatformAndroidLibraryExtension::class.java) {
+            namespace = "jpyoon.example.visionfolio.core.model"
+        }
 }

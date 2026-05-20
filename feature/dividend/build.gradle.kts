@@ -1,9 +1,15 @@
-import com.android.build.api.dsl.LibraryExtension
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryExtension
 
 plugins {
-    id("visionfolio.android.feature")
+    id("visionfolio.kmp.feature")
 }
 
-configure<LibraryExtension> {
-    namespace = "jpyoon.example.visionfolio.feature.dividend"
+kotlin {
+    (this as org.gradle.api.plugins.ExtensionAware).extensions
+        .configure(KotlinMultiplatformAndroidLibraryExtension::class.java) {
+            namespace = "jpyoon.example.visionfolio.feature.dividend"
+        }
+
+    sourceSets {
+    }
 }

@@ -81,3 +81,17 @@ $RECYCLE.BIN/
 /test-results
 jacoco.exec
 *.exec
+
+# Firebase
+google-services.json
+
+# Cloud Functions
+functions/node_modules/
+functions/lib/
+
+# iOS
+iosApp/Pods/
+iosApp/.build/
+*.xcworkspace
+xcuserdata/
+*.xcuserstate

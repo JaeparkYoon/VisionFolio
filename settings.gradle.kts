@@ -25,13 +25,17 @@ dependencyResolutionManagement {
 
 rootProject.name = "VisionFolio"
 
-include(":app")
+include(":androidApp")
+include(":shared")
 
 include(":core:common-android")
 include(":core:common-kotlin")
 include(":core:model")
+include(":core:model-resources")
 include(":core:domain")
 include(":core:data")
+include(":core:repository-api")
+include(":core:network")
 include(":core:local")
 include(":core:navigation")
 include(":core:analytics")
