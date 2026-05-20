@@ -20,6 +20,7 @@ class AddHoldingViewModel(
     override fun createInitialState(): AddHoldingState = AddHoldingState()
 
     fun initForEdit(holding: Holding) {
+        val perUnit = if (holding.quantity > 0) holding.currentValue / holding.quantity else holding.currentValue
         setState {
             copy(
                 editingId = holding.id,
@@ -28,8 +29,7 @@ class AddHoldingViewModel(
                 name = holding.name,
                 code = holding.code,
                 quantity = if (holding.quantity % 1.0 == 0.0) holding.quantity.toLong().toString() else holding.quantity.toString(),
-                avgPrice = if (holding.avgPrice % 1.0 == 0.0) holding.avgPrice.toLong().toString() else holding.avgPrice.toString(),
-                currentPrice = if (holding.currentPrice % 1.0 == 0.0) holding.currentPrice.toLong().toString() else holding.currentPrice.toString(),
+                currentPrice = if (perUnit % 1.0 == 0.0) perUnit.toLong().toString() else perUnit.toString(),
                 maturityDate = holding.maturityDate.orEmpty(),
             )
         }
@@ -42,7 +42,6 @@ class AddHoldingViewModel(
             is AddHoldingIntent.SetName -> setState { copy(name = intent.value, error = null) }
             is AddHoldingIntent.SetCode -> setState { copy(code = intent.value) }
             is AddHoldingIntent.SetQuantity -> setState { copy(quantity = intent.value.filterDouble()) }
-            is AddHoldingIntent.SetAvgPrice -> setState { copy(avgPrice = intent.value.filterDouble()) }
             is AddHoldingIntent.SetCurrentPrice -> setState { copy(currentPrice = intent.value.filterDouble()) }
             is AddHoldingIntent.SetMaturityDate -> setState { copy(maturityDate = intent.value) }
             AddHoldingIntent.Submit -> submit()
@@ -62,7 +61,6 @@ class AddHoldingViewModel(
                 isBond -> 1.0
                 else -> snapshot.quantity.toDouble()
             }
-            val resolvedAvgPrice = if (isCash) 1.0 else snapshot.avgPrice.toDouble()
             val resolvedCurrentPrice = if (isCash) 1.0 else snapshot.currentPrice.toDouble()
             val resolvedCode = if (isCash) "" else snapshot.code
             val resolvedMaturityDate = if (isBond) snapshot.maturityDate.ifBlank { null } else null
@@ -75,8 +73,7 @@ class AddHoldingViewModel(
                             name = snapshot.name,
                             code = resolvedCode,
                             quantity = resolvedQuantity,
-                            avgPrice = resolvedAvgPrice,
-                            currentPrice = resolvedCurrentPrice,
+                            currentValue = resolvedQuantity * resolvedCurrentPrice,
                             currency = snapshot.currency,
                             maturityDate = resolvedMaturityDate,
                         ),
@@ -96,7 +93,6 @@ class AddHoldingViewModel(
                             name = snapshot.name,
                             code = resolvedCode,
                             quantity = resolvedQuantity,
-                            avgPrice = resolvedAvgPrice,
                             currentPrice = resolvedCurrentPrice,
                             currency = snapshot.currency,
                             maturityDate = resolvedMaturityDate,

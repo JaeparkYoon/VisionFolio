@@ -30,7 +30,7 @@ class DailySummaryWorker(
         val summary = data.summary
         val title = "오늘의 자산 요약"
         val body = "평가액 ${KrwFormatter.format(summary.totalValue, compact = true)} · " +
-            "오늘 ${PercentFormatter.format(summary.todayPct)}"
+            "오늘 ${PercentFormatter.format(summary.dayPct)}"
 
         notify(title = title, body = body)
         Result.success()

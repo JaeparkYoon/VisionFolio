@@ -2,34 +2,36 @@ package jpyoon.example.visionfolio.data.portfolio.db.returns
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import jpyoon.example.visionfolio.domain.model.Currency
 import jpyoon.example.visionfolio.domain.model.ReturnCategory
 import jpyoon.example.visionfolio.domain.model.ReturnEntry
 
 @Entity(tableName = "return_entries")
 data class ReturnEntryEntity(
-    @PrimaryKey val id: String,
-    val date: String,
-    val amount: Double,
-    val currency: String,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val category: String,
-    val note: String? = null,
+    val label: String,
+    val investedAmount: Long,
+    val currentValue: Long,
+    val year: Int,
+    val memo: String = "",
 )
 
 fun ReturnEntryEntity.toDomain(): ReturnEntry = ReturnEntry(
     id = id,
-    date = date,
-    amount = amount,
-    currency = Currency.valueOf(currency),
     category = runCatching { ReturnCategory.valueOf(category) }.getOrDefault(ReturnCategory.OTHER),
-    note = note,
+    label = label,
+    investedAmount = investedAmount,
+    currentValue = currentValue,
+    year = year,
+    memo = memo,
 )
 
 fun ReturnEntry.toEntity(): ReturnEntryEntity = ReturnEntryEntity(
     id = id,
-    date = date,
-    amount = amount,
-    currency = currency.name,
     category = category.name,
-    note = note,
+    label = label,
+    investedAmount = investedAmount,
+    currentValue = currentValue,
+    year = year,
+    memo = memo,
 )

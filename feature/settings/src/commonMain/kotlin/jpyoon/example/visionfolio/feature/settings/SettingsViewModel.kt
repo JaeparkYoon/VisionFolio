@@ -4,6 +4,7 @@ import jpyoon.example.visionfolio.core.common.MVIViewModel
 import jpyoon.example.visionfolio.core.repository.api.AppPrefsRepository
 import jpyoon.example.visionfolio.core.repository.api.HoldingRepository
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import me.tatarka.inject.annotations.Inject
 
@@ -15,19 +16,21 @@ class SettingsViewModel @Inject constructor(
     override fun createInitialState(): SettingsState = SettingsState()
 
     init {
-        holdingRepo.observeCount().onEach { count ->
+        holdingRepo.observe().map { it.size }.onEach { count ->
             setState { copy(holdingCount = count) }
         }.launchIn(viewModelScope)
 
         appPrefsRepo.observePrefs().onEach { prefs ->
             setState {
                 copy(
-                    profile = prefs.profile,
                     lastSyncAt = prefs.lastSyncAt,
-                    appVersion = prefs.appVersion,
-                    notifications = prefs.notifications,
+                    appVersion = prefs.version,
                 )
             }
+        }.launchIn(viewModelScope)
+
+        appPrefsRepo.observeNotifications().onEach { notifs ->
+            setState { copy(notifications = notifs) }
         }.launchIn(viewModelScope)
     }
 

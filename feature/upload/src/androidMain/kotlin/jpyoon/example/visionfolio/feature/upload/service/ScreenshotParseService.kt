@@ -14,9 +14,9 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
-import jpyoon.example.visionfolio.app.VisionFolioApp
 import jpyoon.example.visionfolio.data.ai.ScreenshotParseResultStore
 import jpyoon.example.visionfolio.data.ai.ScreenshotParseSession
+import jpyoon.example.visionfolio.data.ai.ScreenshotParseServiceDeps
 import jpyoon.example.visionfolio.core.repository.api.ScreenshotParser
 import jpyoon.example.visionfolio.designsystem.R
 import jpyoon.example.visionfolio.domain.model.ScreenshotRef
@@ -40,10 +40,10 @@ class ScreenshotParseService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        val component = (applicationContext as VisionFolioApp).appComponent
-        parser = component.screenshotParser
-        session = component.screenshotParseSession
-        resultStore = component.screenshotParseResultStore
+        val deps = applicationContext as ScreenshotParseServiceDeps
+        parser = deps.screenshotParser
+        session = deps.screenshotParseSession
+        resultStore = deps.screenshotParseResultStore
         ensureChannel()
     }
 

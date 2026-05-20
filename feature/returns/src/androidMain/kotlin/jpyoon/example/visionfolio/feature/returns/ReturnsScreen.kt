@@ -47,6 +47,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import jpyoon.example.visionfolio.domain.model.ReturnCategory
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import jpyoon.example.visionfolio.domain.model.ReturnEntry
 import jpyoon.example.visionfolio.domain.model.YtdSummary
 
@@ -201,8 +204,8 @@ private fun YearSelector(
 ) {
     var expanded by remember { mutableStateOf(false) }
     val currentYear = remember {
-        kotlinx.datetime.Clock.System.now()
-            .toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
+        Clock.System.now()
+            .toLocalDateTime(TimeZone.currentSystemDefault())
             .year
     }
     val yearOptions = remember(currentYear) { (currentYear downTo currentYear - 5).map { it.toString() } }

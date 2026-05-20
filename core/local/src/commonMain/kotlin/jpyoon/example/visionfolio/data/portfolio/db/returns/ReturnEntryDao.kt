@@ -10,11 +10,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ReturnEntryDao {
 
-    @Query("SELECT * FROM return_entries ORDER BY date DESC, id DESC")
+    @Query("SELECT * FROM return_entries ORDER BY year DESC, id DESC")
     fun observeAll(): Flow<List<ReturnEntryEntity>>
 
-    @Query("SELECT * FROM return_entries WHERE date LIKE :yearPrefix ORDER BY date DESC, id DESC")
-    fun observeByYearPrefix(yearPrefix: String): Flow<List<ReturnEntryEntity>>
+    @Query("SELECT * FROM return_entries WHERE year = :year ORDER BY id DESC")
+    fun observeByYear(year: Int): Flow<List<ReturnEntryEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(entity: ReturnEntryEntity)
@@ -23,7 +23,7 @@ interface ReturnEntryDao {
     suspend fun update(entity: ReturnEntryEntity)
 
     @Query("DELETE FROM return_entries WHERE id = :id")
-    suspend fun deleteById(id: String)
+    suspend fun deleteById(id: Long)
 
     @Query("DELETE FROM return_entries")
     suspend fun clear()

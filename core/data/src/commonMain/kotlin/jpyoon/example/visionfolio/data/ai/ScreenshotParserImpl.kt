@@ -8,6 +8,7 @@ import jpyoon.example.visionfolio.core.repository.api.HoldingRepository
 import jpyoon.example.visionfolio.core.repository.api.ScreenshotParser
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
+import kotlinx.datetime.Clock
 import me.tatarka.inject.annotations.Inject
 import jpyoon.example.visionfolio.core.common.di.AppSingleton
 
@@ -21,12 +22,12 @@ class ScreenshotParserImpl @Inject constructor(
         onDownloadProgress: ((Float) -> Unit)?,
         onQuotaExceeded: ((Int, Int) -> Unit)?,
     ): UploadResult {
-        val start = kotlinx.datetime.Clock.System.now().toEpochMilliseconds()
+        val start = Clock.System.now().toEpochMilliseconds()
         delay(1_600)
         val parsed = parsedFromLocalDb(shots.size)
         return UploadResult(
             parsed = parsed,
-            elapsedMs = kotlinx.datetime.Clock.System.now().toEpochMilliseconds() - start,
+            elapsedMs = Clock.System.now().toEpochMilliseconds() - start,
         )
     }
 
@@ -37,16 +38,19 @@ class ScreenshotParserImpl @Inject constructor(
         return holdings.take(take).map { it.toParsed() }
     }
 
-    private fun Holding.toParsed(): ParsedHolding = ParsedHolding(
-        category = category,
-        name = name,
-        code = code,
-        quantity = quantity,
-        avgPrice = avgPrice,
-        currentPrice = currentPrice,
-        currency = currency,
-        confidence = DEFAULT_CONFIDENCE,
-    )
+    private fun Holding.toParsed(): ParsedHolding {
+        val perUnit = if (quantity > 0) currentValue / quantity else currentValue
+        return ParsedHolding(
+            category = category,
+            name = name,
+            code = code,
+            quantity = quantity,
+            avgPrice = perUnit,
+            currentPrice = perUnit,
+            currency = currency,
+            confidence = DEFAULT_CONFIDENCE,
+        )
+    }
 
     private companion object {
         const val DEFAULT_CONFIDENCE = 0.95f

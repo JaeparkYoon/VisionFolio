@@ -2,6 +2,9 @@ package jpyoon.example.visionfolio.feature.returns
 
 import jpyoon.example.visionfolio.core.common.MVIViewModel
 import jpyoon.example.visionfolio.core.repository.api.AppPrefsRepository
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import jpyoon.example.visionfolio.domain.model.ReturnEntry
 import jpyoon.example.visionfolio.domain.usecase.returns.DeleteReturnEntryUseCase
 import jpyoon.example.visionfolio.domain.usecase.returns.GetYtdSummaryUseCase
@@ -21,8 +24,8 @@ class ReturnsViewModel @Inject constructor(
 ) : MVIViewModel<ReturnsIntent, ReturnsState, ReturnsEffect>() {
 
     private val currentYear: String
-        get() = kotlinx.datetime.Clock.System.now()
-            .toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
+        get() = Clock.System.now()
+            .toLocalDateTime(TimeZone.currentSystemDefault())
             .year.toString()
 
     override fun createInitialState(): ReturnsState = ReturnsState(selectedYear = currentYear)

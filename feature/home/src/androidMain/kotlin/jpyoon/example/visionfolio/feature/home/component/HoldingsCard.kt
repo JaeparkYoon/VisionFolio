@@ -23,7 +23,6 @@ import jpyoon.example.visionfolio.designsystem.component.VfCard
 import jpyoon.example.visionfolio.designsystem.R
 import jpyoon.example.visionfolio.designsystem.component.VfChip
 import jpyoon.example.visionfolio.domain.model.formatter.CurrencyFormatter
-import jpyoon.example.visionfolio.domain.model.formatter.PercentFormatter
 import jpyoon.example.visionfolio.domain.model.AssetCategory
 import jpyoon.example.visionfolio.domain.model.Currency
 import jpyoon.example.visionfolio.domain.model.EnrichedHolding
@@ -115,8 +114,6 @@ private fun HoldingRow(
 ) {
     val isCash = enriched.holding.category.isCash
     val isBond = enriched.holding.category.isBond
-    val up = enriched.plPct >= 0.0
-    val color = if (up) VfColors.Up else VfColors.Down
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -163,9 +160,9 @@ private fun HoldingRow(
             )
             if (!isCash) {
                 Text(
-                    text = if (hideAmounts) "••" else PercentFormatter.format(enriched.plPct),
+                    text = if (hideAmounts) "••" else enriched.holding.category.displayName,
                     style = VfTypography.MetaSub,
-                    color = color,
+                    color = VfColors.InkTertiary,
                 )
             }
         }
