@@ -3,6 +3,7 @@ package jpyoon.example.visionfolio.feature.chat
 import jpyoon.example.visionfolio.core.common.MVIViewModel
 import jpyoon.example.visionfolio.core.repository.api.ChatRepository
 import jpyoon.example.visionfolio.core.repository.api.CreditRepository
+import jpyoon.example.visionfolio.domain.model.chat.ChatSession
 import jpyoon.example.visionfolio.domain.usecase.chat.CreateChatSessionUseCase
 import jpyoon.example.visionfolio.domain.usecase.chat.DeleteChatSessionUseCase
 import jpyoon.example.visionfolio.domain.usecase.chat.ObserveChatSessionsUseCase

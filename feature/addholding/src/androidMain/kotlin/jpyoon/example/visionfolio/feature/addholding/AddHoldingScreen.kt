@@ -104,22 +104,12 @@ fun AddHoldingScreen(
                 )
 
                 Spacer(Modifier.height(12.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    InputField(
-                        label = stringResource(R.string.label_total_purchase_amount),
-                        value = state.avgPrice,
-                        onChange = { onIntent(AddHoldingIntent.SetAvgPrice(it)) },
-                        keyboardType = KeyboardType.Decimal,
-                        modifier = Modifier.weight(1f),
-                    )
-                    InputField(
-                        label = stringResource(R.string.label_total_valuation),
-                        value = state.currentPrice,
-                        onChange = { onIntent(AddHoldingIntent.SetCurrentPrice(it)) },
-                        keyboardType = KeyboardType.Decimal,
-                        modifier = Modifier.weight(1f),
-                    )
-                }
+                InputField(
+                    label = stringResource(R.string.label_total_valuation),
+                    value = state.currentPrice,
+                    onChange = { onIntent(AddHoldingIntent.SetCurrentPrice(it)) },
+                    keyboardType = KeyboardType.Decimal,
+                )
 
                 Spacer(Modifier.height(12.dp))
                 InputField(
@@ -146,21 +136,13 @@ fun AddHoldingScreen(
                         modifier = Modifier.weight(1f),
                     )
                     InputField(
-                        label = stringResource(R.string.label_avg_price),
-                        value = state.avgPrice,
-                        onChange = { onIntent(AddHoldingIntent.SetAvgPrice(it)) },
+                        label = stringResource(R.string.label_current_price),
+                        value = state.currentPrice,
+                        onChange = { onIntent(AddHoldingIntent.SetCurrentPrice(it)) },
                         keyboardType = KeyboardType.Decimal,
                         modifier = Modifier.weight(1f),
                     )
                 }
-
-                Spacer(Modifier.height(12.dp))
-                InputField(
-                    label = stringResource(R.string.label_current_price),
-                    value = state.currentPrice,
-                    onChange = { onIntent(AddHoldingIntent.SetCurrentPrice(it)) },
-                    keyboardType = KeyboardType.Decimal,
-                )
             }
         }
 

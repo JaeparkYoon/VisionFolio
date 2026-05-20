@@ -20,7 +20,7 @@ coroutines = "1.10.2"
 coil = "2.7.0"
 ktor = "3.0.3"
 kermit = "2.1.0"
-kotlinxDatetime = "0.7.1"
+kotlinxDatetime = "0.6.1"
 kotlinInject = "0.9.0"
 timber = "5.0.1"
 

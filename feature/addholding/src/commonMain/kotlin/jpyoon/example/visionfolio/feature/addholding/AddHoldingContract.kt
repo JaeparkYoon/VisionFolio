@@ -15,7 +15,6 @@ data class AddHoldingState(
     val name: String = "",
     val code: String = "",
     val quantity: String = "",
-    val avgPrice: String = "",
     val currentPrice: String = "",
     val maturityDate: String = "",
     val isSubmitting: Boolean = false,
@@ -29,13 +28,11 @@ data class AddHoldingState(
             }
             category.isBond -> {
                 name.isNotBlank() &&
-                    avgPrice.toDoubleOrNull()?.let { it >= 0 } == true &&
                     currentPrice.toDoubleOrNull()?.let { it >= 0 } == true
             }
             else -> {
                 name.isNotBlank() &&
                     quantity.toDoubleOrNull()?.let { it > 0 } == true &&
-                    avgPrice.toDoubleOrNull()?.let { it >= 0 } == true &&
                     currentPrice.toDoubleOrNull()?.let { it >= 0 } == true
             }
         }
@@ -47,7 +44,6 @@ sealed interface AddHoldingIntent : ViewIntent {
     data class SetName(val value: String) : AddHoldingIntent
     data class SetCode(val value: String) : AddHoldingIntent
     data class SetQuantity(val value: String) : AddHoldingIntent
-    data class SetAvgPrice(val value: String) : AddHoldingIntent
     data class SetCurrentPrice(val value: String) : AddHoldingIntent
     data class SetMaturityDate(val value: String) : AddHoldingIntent
     object Submit : AddHoldingIntent

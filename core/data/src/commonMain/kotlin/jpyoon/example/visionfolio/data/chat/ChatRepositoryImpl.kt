@@ -8,6 +8,7 @@ import jpyoon.example.visionfolio.domain.model.chat.GeminiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.datetime.Clock
 import me.tatarka.inject.annotations.Inject
 
 @Inject
@@ -23,7 +24,7 @@ class ChatRepositoryImpl : ChatRepository {
         messages.map { it[sessionId] ?: emptyList() }
 
     override suspend fun createSession(title: String, model: GeminiModel): ChatSession {
-        val session = ChatSession(id = nextSessionId++, title = title, createdAt = kotlinx.datetime.Clock.System.now().toEpochMilliseconds(), model = model)
+        val session = ChatSession(id = nextSessionId++, title = title, createdAt = Clock.System.now().toEpochMilliseconds(), model = model)
         sessions.value = sessions.value + session
         return session
     }
@@ -34,7 +35,7 @@ class ChatRepositoryImpl : ChatRepository {
     }
 
     override suspend fun sendMessage(sessionId: Long, content: String, model: GeminiModel): ChatMessage {
-        val now = kotlinx.datetime.Clock.System.now().toEpochMilliseconds()
+        val now = Clock.System.now().toEpochMilliseconds()
         val userMsg = ChatMessage(id = nextMessageId++, sessionId = sessionId, role = ChatRole.USER, content = content, timestamp = now)
         val assistantMsg = ChatMessage(id = nextMessageId++, sessionId = sessionId, role = ChatRole.ASSISTANT, content = "이것은 데모 응답입니다. 실제 AI 연동은 SnapFolio에서 제공됩니다.", timestamp = now)
         val current = messages.value[sessionId] ?: emptyList()

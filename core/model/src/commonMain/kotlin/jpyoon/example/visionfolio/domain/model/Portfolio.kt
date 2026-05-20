@@ -19,6 +19,18 @@ val AssetCategory.isSavings: Boolean get() = this == AssetCategory.SAVINGS
 val AssetCategory.isPension: Boolean get() = this == AssetCategory.PENSION
 val AssetCategory.isOther: Boolean get() = this == AssetCategory.OTHER
 
+val AssetCategory.displayName: String get() = when (this) {
+    AssetCategory.DOMESTIC_STOCK -> "국내주식"
+    AssetCategory.OVERSEAS_STOCK -> "해외주식"
+    AssetCategory.ETF -> "ETF"
+    AssetCategory.CRYPTO -> "암호화폐"
+    AssetCategory.BOND -> "채권"
+    AssetCategory.CASH -> "현금"
+    AssetCategory.PENSION -> "연금"
+    AssetCategory.SAVINGS -> "저축"
+    AssetCategory.OTHER -> "기타"
+}
+
 enum class Currency { KRW, USD }
 
 data class Holding(

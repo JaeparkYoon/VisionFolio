@@ -18,6 +18,7 @@ import jpyoon.example.visionfolio.domain.model.UploadResult
 import jpyoon.example.visionfolio.domain.usecase.CommitParsedHoldings
 import jpyoon.example.visionfolio.feature.upload.service.ScreenshotParseService
 import kotlinx.coroutines.launch
+import me.tatarka.inject.annotations.Assisted
 import me.tatarka.inject.annotations.Inject
 
 @Inject
@@ -28,7 +29,7 @@ class UploadViewModel(
     private val importSourceRepo: ImportSourceRepository,
     private val session: ScreenshotParseSession,
     private val resultStore: ScreenshotParseResultStore,
-    private val savedStateHandle: SavedStateHandle,
+    @Assisted private val savedStateHandle: SavedStateHandle,
 ) : MVIViewModel<UploadIntent, UploadState, UploadEffect>() {
 
     override fun createInitialState(): UploadState = UploadState()

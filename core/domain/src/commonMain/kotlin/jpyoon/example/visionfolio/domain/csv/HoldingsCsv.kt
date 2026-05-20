@@ -7,7 +7,7 @@ import jpyoon.example.visionfolio.domain.model.Holding
 /** RFC 4180 느슨한 준수. 쉼표/따옴표/개행만 escape */
 object HoldingsCsv {
 
-    private const val HEADER = "id,category,name,code,quantity,avgPrice,currentPrice,currency,maturityDate"
+    private const val HEADER = "id,category,name,code,quantity,currentValue,currency,maturityDate"
 
     fun encode(holdings: List<Holding>): String = buildString {
         appendLine(HEADER)
@@ -19,8 +19,7 @@ object HoldingsCsv {
                     h.name,
                     h.code,
                     h.quantity.toString(),
-                    h.avgPrice.toString(),
-                    h.currentPrice.toString(),
+                    h.currentValue.toString(),
                     h.currency.name,
                     h.maturityDate.orEmpty(),
                 ).joinToString(",") { escape(it) }
@@ -37,7 +36,7 @@ object HoldingsCsv {
 
     private fun parseLine(line: String): Holding? {
         val fields = splitCsv(line)
-        if (fields.size < 8) return null
+        if (fields.size < 7) return null
         return runCatching {
             Holding(
                 id = fields[0],
@@ -45,10 +44,9 @@ object HoldingsCsv {
                 name = fields[2],
                 code = fields[3],
                 quantity = fields[4].toDouble(),
-                avgPrice = fields[5].toDouble(),
-                currentPrice = fields[6].toDouble(),
-                currency = Currency.valueOf(fields[7]),
-                maturityDate = fields.getOrNull(8)?.ifBlank { null },
+                currentValue = fields[5].toDouble(),
+                currency = Currency.valueOf(fields[6]),
+                maturityDate = fields.getOrNull(7)?.ifBlank { null },
             )
         }.getOrNull()
     }

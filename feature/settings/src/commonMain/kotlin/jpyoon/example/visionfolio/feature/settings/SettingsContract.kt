@@ -4,7 +4,7 @@ import jpyoon.example.visionfolio.core.common.ViewIntent
 import jpyoon.example.visionfolio.core.common.ViewEffect
 import jpyoon.example.visionfolio.core.common.ViewState
 import jpyoon.example.visionfolio.domain.model.NotificationKey
-import jpyoon.example.visionfolio.domain.model.NotificationSettings
+import jpyoon.example.visionfolio.domain.model.NotificationPrefs
 import jpyoon.example.visionfolio.domain.model.UserProfile
 
 data class SettingsState(
@@ -12,7 +12,7 @@ data class SettingsState(
     val holdingCount: Int = 0,
     val lastSyncAt: Long = 0L,
     val appVersion: String = "",
-    val notifications: NotificationSettings = NotificationSettings(),
+    val notifications: NotificationPrefs = NotificationPrefs(),
 ) : ViewState
 
 sealed interface SettingsIntent : ViewIntent {

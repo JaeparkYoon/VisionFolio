@@ -17,8 +17,7 @@ class AddHolding @Inject constructor(
             name = draft.name.trim(),
             code = draft.code.trim(),
             quantity = draft.quantity,
-            avgPrice = draft.avgPrice,
-            currentPrice = draft.currentPrice,
+            currentValue = draft.quantity * draft.currentPrice,
             currency = draft.currency,
             maturityDate = draft.maturityDate,
         )
@@ -33,7 +32,6 @@ data class HoldingDraft(
     val name: String,
     val code: String,
     val quantity: Double,
-    val avgPrice: Double,
     val currentPrice: Double,
     val currency: jpyoon.example.visionfolio.domain.model.Currency,
     val maturityDate: String? = null,

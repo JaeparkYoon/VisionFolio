@@ -72,14 +72,14 @@ import jpyoon.example.visionfolio.data.portfolio.db.snapshot.SnapshotDao
 import jpyoon.example.visionfolio.data.prefs.AppPrefsRepositoryImpl
 import jpyoon.example.visionfolio.data.prefs.appPrefsDataStore
 import jpyoon.example.visionfolio.data.ai.ScreenshotParserImpl
-import jpyoon.example.visionfolio.domain.usecase.AddHoldingUseCase
-import jpyoon.example.visionfolio.domain.usecase.CommitParsedHoldingsUseCase
-import jpyoon.example.visionfolio.domain.usecase.ExportHoldingsCsvUseCase
+import jpyoon.example.visionfolio.domain.usecase.AddHolding
+import jpyoon.example.visionfolio.domain.usecase.CommitParsedHoldings
+import jpyoon.example.visionfolio.domain.usecase.ExportHoldingsCsv
 import jpyoon.example.visionfolio.domain.usecase.ExportPortfolioCsvUseCase
 import jpyoon.example.visionfolio.domain.usecase.ImportPortfolioCsvUseCase
-import jpyoon.example.visionfolio.domain.usecase.ObserveDividendDataUseCase
-import jpyoon.example.visionfolio.domain.usecase.ObserveHomeDataUseCase
-import jpyoon.example.visionfolio.domain.usecase.ObserveTrendDataUseCase
+import jpyoon.example.visionfolio.domain.usecase.ObserveDividendData
+import jpyoon.example.visionfolio.domain.usecase.ObserveHomeData
+import jpyoon.example.visionfolio.domain.usecase.ObserveTrendData
 import jpyoon.example.visionfolio.domain.usecase.chat.CreateChatSessionUseCase
 import jpyoon.example.visionfolio.domain.usecase.chat.DeleteChatSessionUseCase
 import jpyoon.example.visionfolio.domain.usecase.chat.ObserveChatSessionsUseCase
@@ -139,7 +139,7 @@ abstract class AppComponent(
     abstract val screenshotParseResultStore: jpyoon.example.visionfolio.data.ai.ScreenshotParseResultStore
 
     abstract val billingRepository: BillingRepository
-    abstract val observeHomeDataUseCase: ObserveHomeDataUseCase
+    abstract val observeHomeDataUseCase: ObserveHomeData
 
     // ── Context / API keys (all empty for demo) ─────────
     @Provides fun context(application: Application): Context = application
@@ -195,14 +195,14 @@ abstract class AppComponent(
         }
     }
 
-    @Provides @AppSingleton fun ecosService(c: HttpClient): EcosService = EcosService(c)
-    @Provides @AppSingleton fun finnhubService(c: HttpClient): FinnhubDividendService = FinnhubDividendService(c)
-    @Provides @AppSingleton fun krDividendService(c: HttpClient): KrDividendService = KrDividendService(c)
-    @Provides @AppSingleton fun naverIndicesService(c: HttpClient): NaverIndicesService = NaverIndicesService(c)
-    @Provides @AppSingleton fun naverNewsService(c: HttpClient): NaverNewsService = NaverNewsService(c)
-    @Provides @AppSingleton fun newsService(c: HttpClient): NewsService = NewsService(c)
-    @Provides @AppSingleton fun twelveDataService(c: HttpClient): TwelveDataService = TwelveDataService(c)
-    @Provides @AppSingleton fun yahooFinanceService(c: HttpClient): YahooFinanceService = YahooFinanceService(c)
+    @Provides @AppSingleton fun ecosService(): EcosService = EcosService()
+    @Provides @AppSingleton fun finnhubService(): FinnhubDividendService = FinnhubDividendService()
+    @Provides @AppSingleton fun krDividendService(): KrDividendService = KrDividendService()
+    @Provides @AppSingleton fun naverIndicesService(): NaverIndicesService = NaverIndicesService()
+    @Provides @AppSingleton fun naverNewsService(): NaverNewsService = NaverNewsService()
+    @Provides @AppSingleton fun newsService(): NewsService = NewsService()
+    @Provides @AppSingleton fun twelveDataService(): TwelveDataService = TwelveDataService()
+    @Provides @AppSingleton fun yahooFinanceService(): YahooFinanceService = YahooFinanceService()
 
     // ── Local DB + DAOs ─────────────────────────────────
     @Provides @AppSingleton fun vfDatabase(context: Context): VfDatabase = createVfDatabase(context)
@@ -231,14 +231,14 @@ abstract class AppComponent(
     @Provides @AppSingleton fun returnEntryRepository(i: ReturnEntryRepositoryImpl): ReturnEntryRepository = i
 
     // ── UseCases ────────────────────────────────────────
-    @Provides fun addHoldingUseCase(r: HoldingRepository): AddHoldingUseCase = AddHoldingUseCase(r)
-    @Provides fun commitParsedHoldingsUseCase(r: HoldingRepository): CommitParsedHoldingsUseCase = CommitParsedHoldingsUseCase(r)
-    @Provides fun exportHoldingsCsvUseCase(r: HoldingRepository): ExportHoldingsCsvUseCase = ExportHoldingsCsvUseCase(r)
+    @Provides fun addHolding(r: HoldingRepository): AddHolding = AddHolding(r)
+    @Provides fun commitParsedHoldings(r: HoldingRepository): CommitParsedHoldings = CommitParsedHoldings(r)
+    @Provides fun exportHoldingsCsv(r: HoldingRepository): ExportHoldingsCsv = ExportHoldingsCsv(r)
     @Provides fun exportPortfolioCsvUseCase(h: HoldingRepository, r: ReturnEntryRepository): ExportPortfolioCsvUseCase = ExportPortfolioCsvUseCase(h, r)
     @Provides fun importPortfolioCsvUseCase(h: HoldingRepository, r: ReturnEntryRepository): ImportPortfolioCsvUseCase = ImportPortfolioCsvUseCase(h, r)
-    @Provides fun observeDividendDataUseCase(h: HoldingRepository, d: DividendRepository, fx: FxRateProvider, o: DividendOverrideRepository): ObserveDividendDataUseCase = ObserveDividendDataUseCase(h, d, fx, o)
-    @Provides fun observeHomeDataUseCase(h: HoldingRepository, q: QuoteRepository, fx: FxRateProvider, p: AppPrefsRepository, s: SeriesRepository): ObserveHomeDataUseCase = ObserveHomeDataUseCase(h, q, fx, p, s)
-    @Provides fun observeTrendDataUseCase(s: SeriesRepository): ObserveTrendDataUseCase = ObserveTrendDataUseCase(s)
+    @Provides fun observeDividendData(h: HoldingRepository, d: DividendRepository, fx: FxRateProvider): ObserveDividendData = ObserveDividendData(h, d, fx)
+    @Provides fun observeHomeData(h: HoldingRepository, q: QuoteRepository, fx: FxRateProvider, p: AppPrefsRepository): ObserveHomeData = ObserveHomeData(h, q, fx, p)
+    @Provides fun observeTrendData(s: SeriesRepository): ObserveTrendData = ObserveTrendData(s)
     @Provides fun createChatSessionUseCase(c: ChatRepository): CreateChatSessionUseCase = CreateChatSessionUseCase(c)
     @Provides fun deleteChatSessionUseCase(c: ChatRepository): DeleteChatSessionUseCase = DeleteChatSessionUseCase(c)
     @Provides fun observeChatSessionsUseCase(c: ChatRepository): ObserveChatSessionsUseCase = ObserveChatSessionsUseCase(c)
