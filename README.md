@@ -3,7 +3,7 @@
   <img src="play-store-icon-512.png" alt="VisionFolio" width="120" />
 </p>
 
-<h1 align="center">VisionFolio <sub><sup>(가칭)</sup></sub></h1>
+<h1 align="center">VisionFolio </h1>
 
 <p align="center">
   <b>스크린샷 한 장으로 흩어진 투자 자산을 모으다.</b><br/>
