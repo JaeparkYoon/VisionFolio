@@ -246,37 +246,6 @@ VisionFolio/
 
 ---
 
-## 빌드
-
-### 필수 환경
-
-- Android Studio Narwhal 이상
-- JDK 17+ (Android Studio 번들 JBR 권장)
-
-### Android
-
-```bash
-./gradlew :androidApp:assembleDebug
-```
-
-### iOS Shared Framework
-
-```bash
-./gradlew :shared:compileKotlinIosSimulatorArm64
-```
-
-Xcode에서 `iosApp/VisionFolio.xcodeproj`를 열고 빌드합니다.
-
-### Cloud Functions
-
-```bash
-cd functions && npm install && npm run build
-```
-
-별도의 API 키 설정은 필요하지 않습니다. 앱은 번들된 mock 데이터만으로 동작합니다.
-
----
-
 ## License
 
 Apache License 2.0 © 2026 VisionFolio
